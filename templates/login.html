@@ -1,0 +1,94 @@
+{% load static tailwind_tags %}
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register</title>
+
+    {% tailwind_css %}
+
+    <link rel="stylesheet" href="{% static 'css/fonts.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/swiper.css' %}" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400..900;1,400..900&family=Alumni+Sans+Pinstripe:ital@0;1&family=Amatic+SC:wght@400;700&family=Lovers+Quarrel&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100..900;1,100..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet" />
+  </head>
+  <body class="min-h-screen flex items-center justify-center bg-[#bfc6d1] poppins">
+    <div class="h-screen w-full flex flex-row justify-center items-center px-0 lg:px-[15rem] py-[2rem]">
+      {% for message in messages %}
+        {% if message.tags == "success" %}
+          <div id="modal-overlay" class="w-screen h-screen fixed flex justify-center items-center inset-0 bg-gray-500 bg-opacity-50 z-[50]">
+            <div class="w-96 h-fit absolute raleway bg-white rounded-[10px] border-2 border-solid border-[#c95902] flex flex-col items-start justify-between p-[20px] gap-[15px] cookies-card z-[100]">
+              <p class="text-xl font-bold text-[#c95902]">Login Successful</p>
+              <p class="text-base">{{ message }}</p>
+              <div class="w-full h-auto flex items-center justify-between gap-[20px]">
+                <a href="/" onclick="closeModal()" class="w-[50%] px-0 py-2 bg-[#c95902] text-white border-none text-center rounded-md cursor-pointer hover:bg-[#c84100] transition-all duration-300 ease-in-out">Go To Home</a>
+                <a href="#" onclick="closeModal()" class="w-[50%] px-0 py-2 bg-gray-200 text-black border-none text-center rounded-md cursor-pointer hover:bg-gray-300 transition-all duration-300 ease-in-out">Logout</a>
+              </div>
+              <button onclick="closeModal()" class="w-[18px] h-[18px] flex items-center justify-center bg-transparent border-none rounded-md cursor-pointer absolute top-6 right-4">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 162 162" class="svgIconCross">
+                  <path stroke-linecap="round" stroke-width="15" stroke="#c95902" d="M9.01074 8.98926L153.021 153"></path>
+                  <path stroke-linecap="round" stroke-width="15" stroke="#c95902" d="M9.01074 153L153.021 8.98926"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+        {% elif message.tags == "error" %}
+          <div id="modal-overlay" class="w-screen h-screen fixed flex justify-center items-center inset-0 bg-gray-500 bg-opacity-50 z-[50]">
+            <div class="w-96 h-fit absolute raleway bg-white rounded-[10px] border-2 border-solid border-[#c95902] flex flex-col items-start justify-between p-[20px] gap-[15px] cookies-card z-[100]">
+              <p class="text-xl font-bold text-[#c95902]">Invalid Credentials</p>
+              <p class="text-base">{{ message }}</p>
+              <div class="w-full h-auto flex items-center justify-between gap-[20px]">
+                <a href="#" onclick="closeModal()" class="w-[50%] px-0 py-2 bg-[#c95902] text-white border-none text-center rounded-md cursor-pointer hover:bg-[#c84100] transition-all duration-300 ease-in-out">Forgot Password?</a>
+                <a href="register" onclick="closeModal()" class="w-[50%] px-0 py-2 bg-gray-200 text-black border-none text-center rounded-md cursor-pointer hover:bg-gray-300 transition-all duration-300 ease-in-out">Register</a>
+              </div>
+              <button onclick="closeModal()" class="w-[18px] h-[18px] flex items-center justify-center bg-transparent border-none rounded-md cursor-pointer absolute top-6 right-4">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 162 162" class="svgIconCross">
+                  <path stroke-linecap="round" stroke-width="15" stroke="#c95902" d="M9.01074 8.98926L153.021 153"></path>
+                  <path stroke-linecap="round" stroke-width="15" stroke="#c95902" d="M9.01074 153L153.021 8.98926"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+
+      {% comment %}script for close modal{% endcomment %}
+      <script>
+        function closeModal() {
+          document.getElementById('modal-overlay').classList.add('hidden')
+        }
+      </script>
+
+      <div class="w-[20rem] md:w-[30rem] lg:w-[30rem] h-auto flex p-2 rounded-[1rem] bg-white shadow-2xl">
+        <div class="relative w-full h-full px-[2rem] py-[1rem] rounded-lg">
+          <h2 class="relative text-[2rem] raleway font-[600] text-[#DC5F00]">Login</h2>
+          <div class="raleway mt-3">
+            <h3 class="w-[100%] text-left text-base text-[#333]">Not registered yet? <a class="no-underline text-[#DC5F00] hover:underline" href="{% url 'register' %}">Register Now</a></h3>
+          </div>
+          <form class="swiper w-[100%] h-[85%] relative flex flex-col items-start mt-[1.275rem]" action="login" method="post">
+            {% csrf_token %}
+
+            <div class="w-full h-auto my-[0.625rem] raleway">
+              <label class="text-slate-600" for="username">Username</label>
+              <input class="mt-2 h-[3.15rem] w-full outline-none px-4 text-[1.063rem] font-normal text-[#333] border border-[#C7BEBE] border-b-[0.156rem] rounded-lg transition-all duration-300 ease-in-out focus:border-[#DC5F00] focus:outline-none focus:ring-0 focus:shadow-none hover:border-[#DC5F00]" type="text" name="username" placeholder="" required />
+            </div>
+
+            <div class="w-full h-auto my-[0.625rem] raleway">
+              <label class="text-slate-600" for="password">Password</label>
+              <input class="mt-2 h-[3.15rem] w-full outline-none px-4 text-[1.063rem] font-normal text-[#333] border border-[#C7BEBE] border-b-[0.156rem] rounded-lg transition-all duration-300 ease-in-out focus:border-[#DC5F00] focus:outline-none focus:ring-0 focus:shadow-none hover:border-[#DC5F00]" type="password" name="password" placeholder="" required />
+            </div>
+
+            <div class="w-full h-[3.25rem] mt-[2.5rem] raleway">
+              <input class="h-full w-full outline-none px-4 text-[1.063rem] font-normal text-[#fff] rounded-lg transition-all duration-300 ease-in-out tracking-[1px] border-none bg-[#DC5F00] hover:bg-[#c84100] cursor-pointer" type="submit" value="Login" />
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
