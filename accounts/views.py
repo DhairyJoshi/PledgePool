@@ -11,12 +11,13 @@ def register(request):
         fname = request.POST['fname']
         lname = request.POST['lname']
         username = request.POST['username']
-        email = request.POST['email'].strip().lower()  # Normalize email case
+        email = request.POST['email'].strip().lower()
         password = request.POST['password']
         confirm_password = request.POST['confirm_password']
         phone = request.POST['phone']
         role = request.POST['role']
         birthdate = request.POST['birthdate']
+        pfp = request.FILES.get('pfp')
         description = request.POST['description']
 
         name = f"{fname} {lname}"
@@ -42,8 +43,11 @@ def register(request):
                 role=role,
                 phone=phone,
                 birthdate=birthdate,
+                pfp=pfp,
                 description=description
             )
+            print("FILES:", request.FILES)
+            print("pfp:", request.FILES.get('pfp'))
             user.save()
             messages.success(request, f"User {username} has been successfully created.")
             return redirect('register')

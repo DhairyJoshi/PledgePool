@@ -146,7 +146,7 @@
               <a class="no-underline text-[#c95902] hover:underline" href="{% url 'login' %}">Login</a>
             </h3>
           </div>
-          <form class="swiper w-[100%] h-auto lg:h-[85%] relative flex flex-col items-start mt-[1.275rem] mb-[4rem]" action="register" method="post">
+          <form class="swiper w-[100%] h-auto lg:h-[85%] relative flex flex-col items-start mt-[1.275rem] mb-[4rem]" action="register" method="post" enctype="multipart/form-data">
             {% csrf_token %}
 
             <div class="swiper-wrapper w-full h-full">
@@ -278,9 +278,10 @@
                       <svg class="h-[40px] fill-[#c95902] mb-[10px]" viewBox="0 0 640 512" height="1em">
                         <path d="M144 480C64.5 480 0 415.5 0 336c0-62.8 40.2-116.2 96.2-135.9c-.1-2.7-.2-5.4-.2-8.1c0-88.4 71.6-160 160-160c59.3 0 111 32.2 138.7 80.2C409.9 102 428.3 96 448 96c53 0 96 43 96 96c0 12.2-2.3 23.8-6.4 34.6C596 238.4 640 290.1 640 352c0 70.7-57.3 128-128 128H144zm79-217c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l39-39V392c0 13.3 10.7 24 24 24s24-10.7 24-24V257.9l39 39c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-80-80c-9.4-9.4-24.6-9.4-33.9 0l-80 80z"></path>
                       </svg>
+                      <span id="file-name" class="flex-[1] text-center truncate">No file selected</span>
                       <span class="bg-[#c95902] px-[15px] py-[5px] rounded-[10px] text-white transition-all duration-300 hover:bg-[#c84100]">Browse File</span>
                     </div>
-                    <input id="pfp" type="file" class="hidden" />
+                    <input id="pfp" name="pfp" type="file" class="hidden" />
                   </label>
                 </div>
 
@@ -330,5 +331,18 @@
         </div>
       </div>
     </div>
+  <script>
+    const fileInput = document.getElementById('pfp');
+    const fileNameSpan = document.getElementById('file-name');
+  
+    fileInput.addEventListener('change', function () {
+      console.log(fileInput.files[0].name, "ss")
+      if (fileInput.files.length > 0) {
+        fileNameSpan.textContent = fileInput.files[0].name;
+      } else {
+        fileNameSpan.textContent = 'No file selected';
+      }
+    });
+  </script>
   </body>
 </html>
