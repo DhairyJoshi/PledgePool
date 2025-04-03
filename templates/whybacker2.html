@@ -1,0 +1,136 @@
+{% load static tailwind_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PledgePool</title>
+
+    {% tailwind_css %}
+
+    <link rel="stylesheet" href="{% static 'css/fonts.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400..900;1,400..900&family=Alumni+Sans+Pinstripe:ital@0;1&family=Amatic+SC:wght@400;700&family=Lovers+Quarrel&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&family=Raleway:ital,wght@0,100..900;1,100..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    {% include 'components/header_two.html' %}
+
+    <section class="text-gray-600 body-font py-8 raleway">
+      <div class="flex flex-col justify-center items-center">
+        <div class="mb-8 text-3xl md:text-4xl lg:text-5xl text-center text-black">Why Become a Backer?</div>
+        <div class="w-[30%] text-lg text-center">Support ideas you believe in and get exclusive rewards while helping creators turn their visions into reality.</div>
+      </div>
+
+      <div class="w-full h-auto flex flex-wrap justify-center items-stretch gap-6 py-20 px-6 md:px-20 lg:px-40">
+        <div class="w-full md:w-[40%] lg:w-[30%] flex flex-col justify-center items-center box-border gap-5 p-4">
+          <img class="w-28 h-28" src="{% static 'images/joinus/backer1.png' %}" alt="backer1">
+          <span class="text-center text-2xl text-black">Support Innovation & Creativity</span>
+          <span class="text-center">Be part of bringing unique ideas, products, and social causes to life by directly funding passionate creators.</span>
+        </div>
+      
+        <div class="w-full md:w-[40%] lg:w-[30%] flex flex-col justify-center items-center box-border gap-5 p-4">
+          <img class="w-20 h-20 my-[1rem]" src="{% static 'images/joinus/backer2.png' %}" alt="backer2">
+          <span class="text-center text-2xl text-black">Exclusive Rewards & Early Access</span>
+          <span class="text-center">Receive limited-edition products, shout-outs, or behind-the-scenes perks before they’re available to the public.</span>
+        </div>
+      
+        <div class="w-full md:w-[40%] lg:w-[30%] flex flex-col justify-center items-center box-border gap-5 p-4">
+          <img class="w-28 h-28" src="{% static 'images/joinus/backer3.png' %}" alt="backer3">
+          <span class="text-center text-2xl text-black">Join a Purpose-Driven Community</span>
+          <span class="text-center">Connect with like-minded supporters, engage in meaningful projects, and make a real-world impact with your pledges.</span>
+        </div>
+      </div>            
+
+      <div class="flex justify-center items-center flex-col-reverse lg:flex-row-reverse gap-6 mx-10 lg:mx-20">
+        <div class="w-[55%] h-full block rounded-lg">
+          <img class="w-auto h-full object-contain object-center" src="{% static 'images/joinus/backer-bg.jpg' %}" alt="backer-bg">
+        </div>
+
+        <div class="w-full lg:w-[60%] h-full flex flex-col justify-center items-start lg:items-end gap-6">
+          <div class="w-full h-auto flex flex-col justify-center items-center lg:items-end px-6">
+            <span class="text-3xl text-end text-black">How to become backer</span>
+            <span class="text-base text-end">Follow the given steps to become a backer at Pledgepool</span>
+          </div>
+
+          <div class="flex flex-row lg:flex-row-reverse">
+            <div class="w-[88px] h-[88px] flex justify-center items-center bg-[#FFE5CC] rounded-full mx-4">
+              <span class="w-[56px] h-[56px] bg-[#DC5F00] text-white flex items-center justify-center text-2xl rounded-full border-[5px] border-white">01</span>
+            </div>
+            <div class="w-auto h-auto flex flex-col justify-center items-start lg:items-end">
+              <span class="text-2xl text-end">Step 01</span>
+              <span class="text-base text-start lg:text-end">Create an account or log in to your Pledgepool profile.</span>
+            </div>
+          </div>
+
+          <div class="flex flex-row lg:flex-row-reverse">
+            <div class="w-[88px] h-[88px] flex justify-center items-center bg-[#FFE5CC] rounded-full mx-4">
+              <span class="w-[56px] h-[56px] bg-[#DC5F00] text-white flex items-center justify-center text-2xl rounded-full border-[5px] border-white">02</span>
+            </div>
+            <div class="w-auto h-auto flex flex-col justify-center items-start lg:items-end">
+              <span class="text-2xl text-end">Step 02</span>
+              <span class="text-base text-start lg:text-end">Browse exciting projects by category or trending campaigns.</span>
+            </div>
+          </div>
+
+          <div class="flex flex-row lg:flex-row-reverse">
+            <div class="w-[88px] h-[88px] flex justify-center items-center bg-[#FFE5CC] rounded-full mx-4">
+              <span class="w-[56px] h-[56px] bg-[#DC5F00] text-white flex items-center justify-center text-2xl rounded-full border-[5px] border-white">03</span>
+            </div>
+            <div class="w-auto h-auto flex flex-col justify-center items-start lg:items-end">
+              <span class="text-2xl text-end">Step 03</span>
+              <span class="text-base text-start lg:text-end">Choose a project you’re passionate about supporting.</span>
+            </div>
+          </div>
+
+          <div class="flex flex-row lg:flex-row-reverse">
+            <div class="w-[88px] h-[88px] flex justify-center items-center bg-[#FFE5CC] rounded-full mx-4">
+              <span class="w-[56px] h-[56px] bg-[#DC5F00] text-white flex items-center justify-center text-2xl rounded-full border-[5px] border-white">04</span>
+            </div>
+            <div class="w-auto h-auto flex flex-col justify-center items-start lg:items-end">
+              <span class="text-2xl text-end">Step 04</span>
+              <span class="text-base text-start lg:text-end">Pick a reward tier or enter your own pledge amount.</span>
+            </div>
+          </div>
+
+          <div class="flex flex-row lg:flex-row-reverse">
+            <div class="w-[88px] h-[88px] flex justify-center items-center bg-[#FFE5CC] rounded-full mx-4">
+              <span class="w-[56px] h-[56px] bg-[#DC5F00] text-white flex items-center justify-center text-2xl rounded-full border-[5px] border-white">05</span>
+            </div>
+            <div class="w-auto h-auto flex flex-col justify-center items-start lg:items-end">
+              <span class="text-2xl text-end">Step 05</span>
+              <span class="text-base text-start lg:text-end">Enter your payment details using a secure gateway</span>
+            </div>
+          </div>
+
+          <div class="flex flex-row lg:flex-row-reverse">
+            <div class="w-[88px] h-[88px] flex justify-center items-center bg-[#FFE5CC] rounded-full mx-4">
+              <span class="w-[56px] h-[56px] bg-[#DC5F00] text-white flex items-center justify-center text-2xl rounded-full border-[5px] border-white">06</span>
+            </div>
+            <div class="w-auto h-auto flex flex-col justify-center items-start lg:items-end">
+              <span class="text-2xl text-end">Step 06</span>
+              <span class="text-base text-start lg:text-end">Receive a confirmation email and see your pledge on your dashboard.</span>
+            </div>
+          </div>
+
+          <div class="flex flex-row lg:flex-row-reverse">
+            <div class="w-[88px] h-[88px] flex justify-center items-center bg-[#FFE5CC] rounded-full mx-4">
+              <span class="w-[56px] h-[56px] bg-[#DC5F00] text-white flex items-center justify-center text-2xl rounded-full border-[5px] border-white">07</span>
+            </div>
+            <div class="w-auto h-auto flex flex-col justify-center items-start lg:items-end">
+              <span class="text-2xl text-end">Step 07</span>
+              <span class="text-base text-start lg:text-end">Stay in the loop with updates from the project creator.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </section>
+  </body>
+</html>

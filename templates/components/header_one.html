@@ -1,4 +1,4 @@
-<header class="w-full h-[15vh] relative flex justify-between">
+<header class="w-full h-[15vh] flex justify-between sticky top-0 z-50 bg-white overflow-hidden lg:overflow-visible">
     <div class="w-auto h-full text-center flex items-center justify-start ml-6">
         <a class="cursor-pointer alumni-sans-pinstripe-regular text-5xl lg:text-6xl tracking-[-0.06em] text-[#373A40]" href="/">PledgePool</a>
     </div>
@@ -46,7 +46,7 @@
             </label>
         </div>
 
-        <div id="menu" class="mr-[-65%] w-[65%] h-[100vh] absolute top-0 pt-[7rem] px-6  bg-primary text-primaryBG flex flex-col justify-start items-end font-raleway uppercase tracking-widest text-base transition-[margin] ease-linear duration-500 bg-black text-white z-50">
+        <div id="menu" class="fixed top-0 right-0 w-[65%] h-full pt-[7rem] px-6 bg-primary text-primaryBG flex flex-col justify-start items-end font-raleway uppercase tracking-widest text-base transition-transform ease-linear duration-500 bg-black text-white z-50 translate-x-full">
             <a href="/" class="mobileMenuItem relative px-[0.25rem] py-[0.5rem] opacity-100 text-ternary duration-200 cursor-pointer" >Home</a>
             <a href="/" class="mobileMenuItem relative px-[0.25rem] py-[0.5rem] opacity-100 text-ternary duration-200 cursor-pointer" >Services</a>
             <a href="projects/view" class="mobileMenuItem relative px-[0.25rem] py-[0.5rem] opacity-100 text-ternary duration-200 cursor-pointer" >Projects</a>
@@ -83,13 +83,15 @@
 
     checkbox.addEventListener("change", function() {
         if (this.checked) {
-            targetDiv.classList.remove("mr-[-65%]");
+            targetDiv.classList.remove("translate-x-full");
+            targetDiv.classList.add("translate-x-0");
             for (let i = 0; i < menuSpans.length; i++) {
                 menuSpans[i].classList.remove("bg-black");
                 menuSpans[i].classList.add("bg-white");
             }
         } else {
-            targetDiv.classList.add("mr-[-65%]");
+            targetDiv.classList.remove("translate-x-0");
+            targetDiv.classList.add("translate-x-full");
             for (let i = 0; i < menuSpans.length; i++) {
                 menuSpans[i].classList.remove("bg-white");
                 menuSpans[i].classList.add("bg-black");

@@ -14,10 +14,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400..900;1,400..900&family=Alumni+Sans+Pinstripe:ital@0;1&family=Amatic+SC:wght@400;700&family=Lovers+Quarrel&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&family=Raleway:ital,wght@0,100..900;1,100..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400..900;1,400..900&family=Alumni+Sans+Pinstripe:ital@0;1&family=Amatic+SC:wght@400;700&family=Lovers+Quarrel&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&family=Raleway:ital,wght@0,100..900;1,100..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet" />
   </head>
   <body>
     {% include 'components/header_two.html' %}
@@ -30,107 +27,112 @@
 
       <div class="w-full h-auto flex flex-wrap justify-center items-stretch gap-6 py-20 px-6 md:px-20 lg:px-40">
         <div class="w-full md:w-[40%] lg:w-[30%] flex flex-col justify-center items-center box-border gap-5 p-4">
-          <img class="w-28 h-28" src="{% static 'images/joinus/creator1.png' %}" alt="backer1">
+          <img class="w-28 h-28" src="{% static 'images/joinus/creator1.png' %}" alt="backer1" />
           <span class="text-center text-2xl text-black">Turn Your Ideas into Reality</span>
           <span class="text-center">Raise funds to bring your innovative projects, products, or causes to life with the support of a global community.</span>
         </div>
-      
+
         <div class="w-full md:w-[40%] lg:w-[30%] flex flex-col justify-center items-center box-border gap-5 p-4">
-          <img class="w-28 h-28" src="{% static 'images/joinus/creator2.png' %}" alt="backer2">
+          <img class="w-28 h-28" src="{% static 'images/joinus/creator2.png' %}" alt="backer2" />
           <span class="text-center text-2xl text-black">Full Creative Control & Visibility</span>
           <span class="text-center">Maintain ownership of your idea while showcasing it through customizable campaigns and reaching passionate backers.</span>
         </div>
-      
+
         <div class="w-full md:w-[40%] lg:w-[30%] flex flex-col justify-center items-center box-border gap-5 p-4">
-          <img class="w-28 h-28" src="{% static 'images/joinus/creator3.png' %}" alt="backer3">
+          <img class="w-28 h-28" src="{% static 'images/joinus/creator3.png' %}" alt="backer3" />
           <span class="text-center text-2xl text-black">Tools to Succeed</span>
           <span class="text-center">Access powerful features like reward management, analytics dashboards, and social sharing tools to grow and manage your campaign with ease.</span>
         </div>
-      </div>            
+      </div>
 
-      <div class="flex justify-center items-center flex-col-reverse lg:flex-row-reverse gap-6 mx-10 lg:mx-20">
-        <div class="w-[55%] h-full block rounded-lg">
-          <img class="w-auto h-full object-contain object-center" src="{% static 'images/joinus/creator-bg.jpg' %}" alt="backer-bg">
-        </div>
-
-        <div class="w-full lg:w-[60%] h-full flex flex-col justify-center items-start lg:items-end gap-6">
-          <div class="w-full h-auto flex flex-col justify-center items-center lg:items-end px-6">
-            <span class="text-3xl text-end text-black">How to become creator</span>
-            <span class="text-base text-end">Follow the given steps to become a creator at Pledgepool</span>
+      <div class="flex justify-center items-center flex-col-reverse lg:flex-row-reverse mt-16 gap-6">
+        <div class="w-full lg:w-full h-full flex flex-col justify-center items-center lg:items-end gap-2">
+          <div class="w-full h-auto flex flex-col justify-center items-center px-6">
+            <span class="text-5xl text-center lg:text-end text-black mb-4">How to become creator</span>
+            <span class="text-2xl text-center lg:text-end">Follow the given steps to become a creator at Pledgepool</span>
           </div>
 
-          <div class="flex flex-row lg:flex-row-reverse">
-            <div class="w-[88px] h-[88px] flex justify-center items-center bg-[#FFE5CC] rounded-full mx-4">
-              <span class="w-[56px] h-[56px] bg-[#DC5F00] text-white flex items-center justify-center text-2xl rounded-full border-[5px] border-white">01</span>
-            </div>
-            <div class="w-auto h-auto flex flex-col justify-center items-start lg:items-end">
-              <span class="text-2xl text-end">Step 01</span>
-              <span class="text-base text-start lg:text-end">Create an account or log in to your Pledgepool profile.</span>
-            </div>
-          </div>
+          <div class="w-full h-auto flex flex-row justify-center items-center gap-8 px-5 md:px-10 xl:px-20 py-2">
+            <div class="w-full lg:w-[25%] flex flex-col items-center lg:items-start justify-center gap-8">
+                <span class="text-3xl">Creating Made Simple</span>
+                <span class="text-center lg:text-start">Wondering how to bring your project to life? Let’s break it down step by step so you can see exactly how the creation process works—from start to finish.</span>                
 
-          <div class="flex flex-row lg:flex-row-reverse">
-            <div class="w-[88px] h-[88px] flex justify-center items-center bg-[#FFE5CC] rounded-full mx-4">
-              <span class="w-[56px] h-[56px] bg-[#DC5F00] text-white flex items-center justify-center text-2xl rounded-full border-[5px] border-white">02</span>
+                <a href="projects/view" class="relative inline-block px-4 lg:px-6 py-2 lg:py-3 mr-3 lg:mr-6 text-[#DC5F00] cursor-pointer overflow-hidden border-2 border-solid border-[#DC5F00] transition-colors duration-500 z-[1] rounded-lg raleway text-lg before:content-[''] before:absolute before:top-full before:left-full before:z-[-1] before:bg-[#DC5F00] before:h-[18.75rem] before:w-[25rem] before:rounded-[50%] before:transition-all before:duration-700 hover:text-white hover:before:top-[-3.75rem] hover:before:left-[-3.75rem] active:before:bg-[#DC5F00] active:before:transition-all active:before:duration-0">Terms & Conditions</a>
             </div>
-            <div class="w-auto h-auto flex flex-col justify-center items-start lg:items-end">
-              <span class="text-2xl text-end">Step 02</span>
-              <span class="text-base text-start lg:text-end">Fill in necessary details to get verified as a creator.</span>
+
+            <div class="w-[40%] h-auto hidden lg:flex justify-center items-start">
+              <img src="{% static 'images/joinus/creator_bg1.png' %}" alt="Backer BG-1">
             </div>
           </div>
 
-          <div class="flex flex-row lg:flex-row-reverse">
-            <div class="w-[88px] h-[88px] flex justify-center items-center bg-[#FFE5CC] rounded-full mx-4">
-              <span class="w-[56px] h-[56px] bg-[#DC5F00] text-white flex items-center justify-center text-2xl rounded-full border-[5px] border-white">03</span>
+          <div class="flex flex-col lg:flex-row relative flex-wrap justify-center items-center gap-16 px-40 mt-10">
+            <div class="flex flex-col lg:flex-row justify-center items-center gap-10">
+              <div class="w-[18rem] h-auto flex flex-col justify-center items-center gap-5">
+                <div class="w-48 h-48 bg-white flex justify-center items-center border-2 rounded-full shadow-[6px_7px_0px_1px_#DC5F00]">
+                  <span class="text-9xl  text-[#DC5F00]">1</span>
+                </div>
+                <div class="flex flex-col justify-center items-center text-center">
+                  <span class="text-3xl mb-3">Fill out the form</span>
+                  <span class="text-base">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestias esse earum nemo perferendis nisi distinctio id?</span>
+                </div>
+              </div>
+              
+              <div class="w-[18rem] h-auto flex flex-col justify-center items-center gap-5">
+                <div class="w-48 h-48 bg-white flex justify-center items-center border-2 rounded-full shadow-[6px_7px_0px_1px_#DC5F00]">
+                  <span class="text-9xl  text-[#DC5F00]">2</span>
+                </div>
+                <div class="flex flex-col justify-center items-center text-center">
+                  <span class="text-3xl mb-3">Fill out the form</span>
+                  <span class="text-base">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestias esse earum nemo perferendis nisi distinctio id?</span>
+                </div>
+              </div>
+  
+              <div class="w-[18rem] h-auto flex flex-col justify-center items-center gap-5">
+                <div class="w-48 h-48 bg-white flex justify-center items-center border-2 rounded-full shadow-[6px_7px_0px_1px_#DC5F00]">
+                  <span class="text-9xl  text-[#DC5F00]">3</span>
+                </div>
+                <div class="flex flex-col justify-center items-center text-center">
+                  <span class="text-3xl mb-3">Fill out the form</span>
+                  <span class="text-base">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestias esse earum nemo perferendis nisi distinctio id?</span>
+                </div>
+              </div>
             </div>
-            <div class="w-auto h-auto flex flex-col justify-center items-start lg:items-end">
-              <span class="text-2xl text-end">Step 03</span>
-              <span class="text-base text-start lg:text-end">Access the creator dashboard and hit the button to launch your first campaign.</span>
-            </div>
-          </div>
 
-          <div class="flex flex-row lg:flex-row-reverse">
-            <div class="w-[88px] h-[88px] flex justify-center items-center bg-[#FFE5CC] rounded-full mx-4">
-              <span class="w-[56px] h-[56px] bg-[#DC5F00] text-white flex items-center justify-center text-2xl rounded-full border-[5px] border-white">04</span>
-            </div>
-            <div class="w-auto h-auto flex flex-col justify-center items-start lg:items-end">
-              <span class="text-2xl text-end">Step 04</span>
-              <span class="text-base text-start lg:text-end">Add your project name, description, images or video, and tell your story to engage backers.</span>
-            </div>
-          </div>
+            <div class="flex flex-col lg:flex-row-reverse items-center justify-center gap-10">
+              <div class="w-[18rem] h-auto flex flex-col justify-center items-center gap-5">
+                <div class="w-48 h-48 bg-white flex justify-center items-center border-2 rounded-full shadow-[6px_7px_0px_1px_#DC5F00]">
+                  <span class="text-9xl  text-[#DC5F00]">4</span>
+                </div>
+                <div class="flex flex-col justify-center items-center text-center">
+                  <span class="text-3xl mb-3">Fill out the form</span>
+                  <span class="text-base">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestias esse earum nemo perferendis nisi distinctio id?</span>
+                </div>
+              </div>
+  
+              <div class="w-[18rem] h-auto flex flex-col justify-center items-center gap-5">
+                <div class="w-48 h-48 bg-white flex justify-center items-center border-2 rounded-full shadow-[6px_7px_0px_1px_#DC5F00]">
+                  <span class="text-9xl  text-[#DC5F00]">5</span>
+                </div>
+                <div class="flex flex-col justify-center items-center text-center">
+                  <span class="text-3xl mb-3">Fill out the form</span>
+                  <span class="text-base">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestias esse earum nemo perferendis nisi distinctio id?</span>
+                </div>
+              </div>
 
-          <div class="flex flex-row lg:flex-row-reverse">
-            <div class="w-[88px] h-[88px] flex justify-center items-center bg-[#FFE5CC] rounded-full mx-4">
-              <span class="w-[56px] h-[56px] bg-[#DC5F00] text-white flex items-center justify-center text-2xl rounded-full border-[5px] border-white">05</span>
-            </div>
-            <div class="w-auto h-auto flex flex-col justify-center items-start lg:items-end">
-              <span class="text-2xl text-end">Step 05</span>
-              <span class="text-base text-start lg:text-end">Define your funding target, campaign duration, and reward options for backers.</span>
-            </div>
-          </div>
-
-          <div class="flex flex-row lg:flex-row-reverse">
-            <div class="w-[88px] h-[88px] flex justify-center items-center bg-[#FFE5CC] rounded-full mx-4">
-              <span class="w-[56px] h-[56px] bg-[#DC5F00] text-white flex items-center justify-center text-2xl rounded-full border-[5px] border-white">06</span>
-            </div>
-            <div class="w-auto h-auto flex flex-col justify-center items-start lg:items-end">
-              <span class="text-2xl text-end">Step 06</span>
-              <span class="text-base text-start lg:text-end">Double-check all details and submit your campaign for platform approval.</span>
-            </div>
-          </div>
-
-          <div class="flex flex-row lg:flex-row-reverse">
-            <div class="w-[88px] h-[88px] flex justify-center items-center bg-[#FFE5CC] rounded-full mx-4">
-              <span class="w-[56px] h-[56px] bg-[#DC5F00] text-white flex items-center justify-center text-2xl rounded-full border-[5px] border-white">07</span>
-            </div>
-            <div class="w-auto h-auto flex flex-col justify-center items-start lg:items-end">
-              <span class="text-2xl text-end">Step 07</span>
-              <span class="text-base text-start lg:text-end">Go live and start promoting your campaign to reach potential backers.</span>
+  
+              <div class="w-[18rem] h-auto flex flex-col justify-center items-center gap-5">
+                <div class="w-48 h-48 bg-white flex justify-center items-center border-2 rounded-full shadow-[6px_7px_0px_1px_#DC5F00]">
+                  <span class="text-9xl  text-[#DC5F00]">6</span>
+                </div>
+                <div class="flex flex-col justify-center items-center text-center">
+                  <span class="text-3xl mb-3">Fill out the form</span>
+                  <span class="text-base">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestias esse earum nemo perferendis nisi distinctio id?</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      
     </section>
   </body>
 </html>
