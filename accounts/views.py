@@ -67,8 +67,6 @@ def login(request):
             user = pledgepool_user.objects.get(username=username, password=password)
             request.session['user_id'] = user.id
             request.session['username'] = user.username
-            request.session['name'] = user.name
-            request.session['role'] = user.role
             messages.success(request, f"Welcome back, {username}!")
             return redirect('login')
         except pledgepool_user.DoesNotExist:

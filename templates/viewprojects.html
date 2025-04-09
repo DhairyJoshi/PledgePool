@@ -2,95 +2,41 @@
 
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PledgePool</title>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PledgePool</title>
+    {% tailwind_css %}
 
-  {% tailwind_css %}
+    <link rel="stylesheet" href="{% static 'css/fonts.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
 
-  <link rel="stylesheet" href="{% static 'css/fonts.css' %}">
-  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400..900;1,400..900&family=Alumni+Sans+Pinstripe:ital@0;1&family=Amatic+SC:wght@400;700&family=Lovers+Quarrel&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&family=Raleway:ital,wght@0,100..900;1,100..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet" />
+  </head>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400..900;1,400..900&family=Alumni+Sans+Pinstripe:ital@0;1&family=Amatic+SC:wght@400;700&family=Lovers+Quarrel&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&family=Raleway:ital,wght@0,100..900;1,100..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
-    rel="stylesheet">
-</head>
+  <body>
+    {% include 'components/header_two.html' %}
 
-<body>
-  {% include 'components/header_two.html' %}
-
-  <section class="text-gray-600 body-font overflow-hidden">
-    <div class="container px-5 py-24 mx-auto">
-      <div class="flex flex-wrap -m-12">
-        <div class="p-12 md:w-1/2 flex flex-col items-start">
-          <span class="inline-block py-1 px-2 rounded bg-[#FFE5CC] text-[#DC5F00] text-xs font-medium tracking-widest">CATEGORY</span>
-          <h2 class="sm:text-3xl text-2xl title-font font-medium text-gray-900 mt-4 mb-4">Roof party normcore before they sold out, cornhole vape</h2>
-          <p class="leading-relaxed mb-8">Live-edge letterpress cliche, salvia fanny pack humblebrag narwhal portland. VHS man braid palo santo hoodie brunch trust fund. Bitters hashtag waistcoat fashion axe chia unicorn. Plaid fixie chambray 90's, slow-carb etsy tumeric. Cray pug you probably haven't heard of them hexagon kickstarter craft beer pork chic.</p>
-          <div class="flex items-center flex-wrap pb-4 mb-4 border-b-2 border-gray-100 mt-auto w-full">
-            <a class="text-[#DC5F00] inline-flex items-center">Learn More
-              <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M5 12h14"></path>
-                <path d="M12 5l7 7-7 7"></path>
-              </svg>
-            </a>
-            <span class="text-gray-400 mr-3 inline-flex items-center ml-auto leading-none text-sm pr-3 py-1 border-r-2 border-gray-200">
-              <svg class="w-4 h-4 mr-1" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                <circle cx="12" cy="12" r="3"></circle>
-              </svg>1.2K
-            </span>
-            <span class="text-gray-400 inline-flex items-center leading-none text-sm">
-              <svg class="w-4 h-4 mr-1" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"></path>
-              </svg>6
-            </span>
-          </div>
-          <a class="inline-flex items-center">
-            <img alt="blog" src="https://dummyimage.com/104x104" class="w-12 h-12 rounded-full flex-shrink-0 object-cover object-center">
-            <span class="flex-grow flex flex-col pl-4">
-              <span class="title-font font-medium text-gray-900">Holden Caulfield</span>
-              <span class="text-gray-400 text-xs tracking-widest mt-0.5">UI DEVELOPER</span>
-            </span>
-          </a>
-        </div>
-        <div class="p-12 md:w-1/2 flex flex-col items-start">
-          <span class="inline-block py-1 px-2 rounded bg-[#FFE5CC] text-[#DC5F00] text-xs font-medium tracking-widest">CATEGORY</span>
-          <h2 class="sm:text-3xl text-2xl title-font font-medium text-gray-900 mt-4 mb-4">Pinterest DIY dreamcatcher gentrify single-origin coffee</h2>
-          <p class="leading-relaxed mb-8">Live-edge letterpress cliche, salvia fanny pack humblebrag narwhal portland. VHS man braid palo santo hoodie brunch trust fund. Bitters hashtag waistcoat fashion axe chia unicorn. Plaid fixie chambray 90's, slow-carb etsy tumeric.</p>
-          <div class="flex items-center flex-wrap pb-4 mb-4 border-b-2 border-gray-100 mt-auto w-full">
-            <a class="text-[#DC5F00] inline-flex items-center">Learn More
-              <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M5 12h14"></path>
-                <path d="M12 5l7 7-7 7"></path>
-              </svg>
-            </a>
-            <span class="text-gray-400 mr-3 inline-flex items-center ml-auto leading-none text-sm pr-3 py-1 border-r-2 border-gray-200">
-              <svg class="w-4 h-4 mr-1" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                <circle cx="12" cy="12" r="3"></circle>
-              </svg>1.2K
-            </span>
-            <span class="text-gray-400 inline-flex items-center leading-none text-sm">
-              <svg class="w-4 h-4 mr-1" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"></path>
-              </svg>6
-            </span>
-          </div>
-          <a class="inline-flex items-center">
-            <img alt="blog" src="https://dummyimage.com/103x103" class="w-12 h-12 rounded-full flex-shrink-0 object-cover object-center">
-            <span class="flex-grow flex flex-col pl-4">
-              <span class="title-font font-medium text-gray-900">Alper Kamu</span>
-              <span class="text-gray-400 text-xs tracking-widest mt-0.5">DESIGNER</span>
-            </span>
-          </a>
-        </div>
+    <section class="text-gray-600 body-font overflow-hidden">
+      <div class="flex flex-wrap justify-center items-center">
+        {% include 'components/project.html' with image_loc='../static/images/trending/image1.jpg' description='Developing an AI-powered learning platform for students' pledgee='Alex Johnson' achieved_amount='10,37,500' total_amount='20,75,000' progress='50%' days_left='15' no_of_pledges='120' %}
+  
+        {% include 'components/project.html' with image_loc='../static/images/trending/image2.jpg' description='Funding a short film about environmental awareness' pledgee='Sarah Lee' achieved_amount='1,24,500' total_amount='12,45,000' progress='10%' days_left='20' no_of_pledges='95' %}
+  
+        {% include 'components/project.html' with image_loc='../static/images/trending/image3.jpg' description='Launching a new sustainable clothing brand' pledgee='Mark Thompson' achieved_amount='4,31,600' total_amount='8,30,000' progress='52%' days_left='25' no_of_pledges='75' %}
+  
+        {% include 'components/project.html' with image_loc='../static/images/trending/image4.jpg' description='Providing medical aid to underprivileged communities' pledgee='Dr. Emily Carter' achieved_amount='15,18,900' total_amount='24,90,000' progress='61%' days_left='10' no_of_pledges='200' %}
+  
+        {% include 'components/project.html' with image_loc='../static/images/trending/image5.jpg' description='Building a mobile app for mental health support' pledgee='Jake Williams' achieved_amount='5,35,350' total_amount='9,96,000' progress='54%' days_left='18' no_of_pledges='85' %}
+  
+        {% include 'components/project.html' with image_loc='../static/images/trending/image6.jpg' description='Supporting an indie game development project' pledgee='Chris Anderson' achieved_amount='8,21,700' total_amount='16,60,000' progress='49%' days_left='12' no_of_pledges='110' %}
+  
+        {% include 'components/project.html' with image_loc='../static/images/trending/image7.jpg' description='Crowdfunding a community library in a rural area' pledgee='Olivia Martinez' achieved_amount='3,15,400' total_amount='6,22,500' progress='51%' days_left='22' no_of_pledges='65' %}
       </div>
-    </div>
-  </section>
-</body>
 
+    </section>
+  </body>
 </html>

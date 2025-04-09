@@ -1,0 +1,38 @@
+{% load static %}
+
+<div class="w-[25rem] min-w-[25rem] flex flex-col mx-4 my-6 rounded-md raleway box-border overflow-hidden border-[1px] border-gray-400">
+    <img class="w-auto h-[12rem] object-cover object-[50%_50%]" src="{{ image_loc }}">
+    <div class="w-full h-full justify-around flex flex-col gap-3 px-4 py-3">
+        <div class="w-full h-auto">
+            <div class="text-left font-bold mt-3">{{ description }}</div>
+            <div>by {{ pledgee }}</div>
+        </div>
+        <div class="w-full flex items-end justify-between">
+            <div class="text-xl mr-1">&#8377;{{ achieved_amount }}</div>
+            <div class="text-base opacity-60 flex">/ &#8377;{{ total_amount }}</div>
+        </div>
+        <div class="w-full mx-auto bg-[#e1bb9e] rounded-full h-1.5 mb-4">
+            <div class="bg-[#DC5F00] h-1.5 rounded-full" style="width: {{ progress }};"></div>
+        </div>
+        <div class="w-full h-auto flex justify-between">
+            <div class="w-auto h-auto flex text-sm lg:text-base">
+                <img class="w-6 lg:w-7 h-6 lg:h-7 mr-1 lg:mr-2" src="{% static 'images/timer.svg' %}">
+                <span class="font-bold mr-1">{{ days_left }}</span>days left
+            </div>
+            <div class="w-auto h-auto text-sm lg:text-base flex">
+                <label
+                    class="relative block cursor-pointer text-[20px] mr-1 lg:mr-2 select-none transition-transform duration-100 hover:scale-110">
+                    <input type="checkbox"
+                        class="absolute opacity-0 w-0 h-0 cursor-pointer [&:checked+svg>path]:fill-[#ff5353]" />
+                    <svg viewBox="0 0 256 256" class="top-0 left-0 w-6 lg:w-7 h-6 lg:h-7 transition-all duration-100">
+                        <rect fill="none" height="256" width="256"></rect>
+                        <path
+                            d="M224.6,51.9a59.5,59.5,0,0,0-43-19.9,60.5,60.5,0,0,0-44,17.6L128,59.1l-7.5-7.4C97.2,28.3,59.2,26.3,35.9,47.4a59.9,59.9,0,0,0-2.3,87l83.1,83.1a15.9,15.9,0,0,0,22.6,0l81-81C243.7,113.2,245.6,75.2,224.6,51.9Z"
+                            stroke-width="20px" stroke="#000" fill="none"></path>
+                    </svg>
+                </label>
+                {{ no_of_pledges }} pledges
+            </div>
+        </div>
+    </div>
+</div>

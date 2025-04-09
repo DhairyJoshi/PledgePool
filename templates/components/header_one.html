@@ -14,9 +14,19 @@
             Services
         </a>
 
-        <a href="projects/view" class="relative inline-block px-[1rem] py-[0.8rem] after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:w-0 after:h-[0.1em] after:bg-[#373A40] after:opacity-75 after:transition-all after:duration-200 after:ease-linear hover:after:w-full hover:after:left-0" href="#">
-            Projects
-        </a>
+        {% if user_obj.role == "backer" %}
+            <a href="projects/view" class="relative inline-block px-[1rem] py-[0.8rem] after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:w-0 after:h-[0.1em] after:bg-[#373A40] after:opacity-75 after:transition-all after:duration-200 after:ease-linear hover:after:w-full hover:after:left-0" href="#">
+                Browse Projects
+            </a>
+        {% elif user_obj.role == "creator" %}
+            <a href="projects/view" class="relative inline-block px-[1rem] py-[0.8rem] after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:w-0 after:h-[0.1em] after:bg-[#373A40] after:opacity-75 after:transition-all after:duration-200 after:ease-linear hover:after:w-full hover:after:left-0" href="#">
+                My Projects
+            </a>
+        {% else %}
+            <a href="projects/view" class="relative inline-block px-[1rem] py-[0.8rem] after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:w-0 after:h-[0.1em] after:bg-[#373A40] after:opacity-75 after:transition-all after:duration-200 after:ease-linear hover:after:w-full hover:after:left-0" href="#">
+                Projects
+            </a>
+        {% endif %}
         
         {% if not is_logged_in %}
             <div class="relative inline-block group">
@@ -73,10 +83,10 @@
 
                 <div class="w-[15rem] absolute top-[3rem] right-0 opacity-0 invisible group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 ease-in-out transform translate-y-4 border-2 border-gray-400 border-solid rounded-lg overflow-hidden bg-white z-50 normal-case">
                     <div class="w-full h-auto flex justify-start items-center gap-3 px-8 py-4 border-b border-b-gray-400">
-                        <img class="w-10 h-10 rounded-full bg-black" src="">
+                        <img class="w-10 h-10 rounded-full" src={{ user_obj.pfp.url }}>
                         <div class="flex flex-col">
-                            <span class="text-[#DC5F00] text-sm capitalize">{{ request.session.role }}</span>
-                            <span>{{ request.session.name }}</span>
+                            <span class="text-[#DC5F00] text-sm capitalize">{{ user_obj.role }}</span>
+                            <span>{{ user_obj.name }}</span>
                         </div>
                     </div>
                     <div class="w-full h-auto flex flex-col justify-center items-center gap-5 px-8 py-4 border-b border-b-gray-400">
