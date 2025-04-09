@@ -14,11 +14,11 @@
             Services
         </a>
 
-        {% if request.session.role == "backer" %}
+        {% if user_obj.role == "backer" %}
             <a href="../projects/view" class="relative inline-block px-[1rem] py-[0.8rem] after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:w-0 after:h-[0.1em] after:bg-[#373A40] after:opacity-75 after:transition-all after:duration-200 after:ease-linear hover:after:w-full hover:after:left-0" href="#">
                 Browse Projects
             </a>
-        {% elif request.session.role == "creator" %}
+        {% elif user_obj.role == "creator" %}
             <a href="../projects/view" class="relative inline-block px-[1rem] py-[0.8rem] after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:w-0 after:h-[0.1em] after:bg-[#373A40] after:opacity-75 after:transition-all after:duration-200 after:ease-linear hover:after:w-full hover:after:left-0" href="#">
                 My Projects
             </a>
