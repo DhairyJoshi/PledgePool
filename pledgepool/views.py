@@ -1,23 +1,17 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from accounts.models import pledgepool_user
+from django.contrib import messages
 
 # Create your views here.
 def home(request):
-    is_logged_in = 'user_id' in request.session
-    username = request.session.get('username', '')
-    user_obj = None
+    role = request.session.get('role')
 
-    if username:
-        try:
-            user_obj = pledgepool_user.objects.get(username=username)
-        except pledgepool_user.DoesNotExist:
-            pass
-
-    return render(request, 'index.html', {
-        'is_logged_in': is_logged_in,
-        'username': username,
-        'user_obj': user_obj
-    })
+    if role == 'creator':
+        return redirect('/creator/dashboard')
+    elif role == 'backer':
+        return redirect('/backer/dashboard')
+    
+    return render(request, 'index.html')
 
 def services(request):
     return render(request, 'services.html')

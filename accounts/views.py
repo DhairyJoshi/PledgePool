@@ -67,8 +67,18 @@ def login(request):
             user = pledgepool_user.objects.get(username=username, password=password)
             request.session['user_id'] = user.id
             request.session['username'] = user.username
-            messages.success(request, f"Welcome back, {username}!")
-            return redirect('login')
+            request.session['role'] = user.role
+
+            if user.role == 'creator':
+                messages.success(request, f"Welcome back, {username}!")
+                return redirect('../creator/dashboard')
+            elif user.role == 'backer':
+                messages.success(request, f"Welcome back, {username}!")
+                return redirect('../backer/dashboard')
+            else:
+                messages.error(request, "Invalid role detected.")
+                return redirect('login')
+            
         except pledgepool_user.DoesNotExist:
             messages.error(request, "The username or password you entered is incorrect. Please try again.")
             return redirect('login')

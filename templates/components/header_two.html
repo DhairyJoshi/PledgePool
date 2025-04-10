@@ -2,13 +2,29 @@
 
 <header class="w-full h-[15vh] flex justify-between sticky top-0 z-50 bg-white overflow-hidden lg:overflow-visible">
     <div class="w-auto h-full text-center flex items-center justify-start ml-6">
-        <a class="cursor-pointer alumni-sans-pinstripe-regular text-5xl lg:text-6xl tracking-[-0.06em] text-[#373A40]" href="/">PledgePool</a>
+        {% if user_obj.role == "backer" %}
+            <a class="cursor-pointer alumni-sans-pinstripe-regular text-5xl lg:text-6xl tracking-[-0.06em] text-[#373A40]" href="../backer/dashboard">PledgePool</a>
+        {% elif user_obj.role == "creator" %}
+            <a class="cursor-pointer alumni-sans-pinstripe-regular text-5xl lg:text-6xl tracking-[-0.06em] text-[#373A40]" href="../creator/dashboard">PledgePool</a>
+        {% else %}
+            <a class="cursor-pointer alumni-sans-pinstripe-regular text-5xl lg:text-6xl tracking-[-0.06em] text-[#373A40]" href="/">PledgePool</a>
+        {% endif %}
     </div>
 
     <div class="w-auto h-full hidden lg:flex flex-row justify-around items-center raleway uppercase tracking-[0.15em] text-[#373A40] text-lg">
-        <a href="/" class="relative inline-block px-[1rem] py-[0.8rem] after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:w-0 after:h-[2px] after:bg-[#373A40] after:opacity-75 after:transition-all after:duration-200 after:ease-linear hover:after:w-full hover:after:left-0" href="/">
-            Home
-        </a>
+        {% if user_obj.role == "backer" %}
+            <a href="../backer/dashboard" class="relative inline-block px-[1rem] py-[0.8rem] after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:w-0 after:h-[2px] after:bg-[#373A40] after:opacity-75 after:transition-all after:duration-200 after:ease-linear hover:after:w-full hover:after:left-0" href="#">
+                Home
+            </a>
+        {% elif user_obj.role == "creator" %}
+            <a href="../creator/dashboard" class="relative inline-block px-[1rem] py-[0.8rem] after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:w-0 after:h-[2px] after:bg-[#373A40] after:opacity-75 after:transition-all after:duration-200 after:ease-linear hover:after:w-full hover:after:left-0" href="#">
+                Home
+            </a>
+        {% else %}
+            <a href="/" class="relative inline-block px-[1rem] py-[0.8rem] after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:w-0 after:h-[2px] after:bg-[#373A40] after:opacity-75 after:transition-all after:duration-200 after:ease-linear hover:after:w-full hover:after:left-0" href="#">
+                Home
+            </a>
+        {% endif %}
         
         <a class="relative inline-block px-[1rem] py-[0.8rem] after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:w-0 after:h-[0.1em] after:bg-[#373A40] after:opacity-75 after:transition-all after:duration-200 after:ease-linear hover:after:w-full hover:after:left-0" href="../services">
             Services

@@ -1,0 +1,70 @@
+{% load static tailwind_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PledgePool</title>
+
+    {% tailwind_css %}
+
+    <link rel="stylesheet" href="{% static 'css/fonts.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/trendingSwiper.css' %}" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400..900;1,400..900&family=Alumni+Sans+Pinstripe:ital@0;1&family=Amatic+SC:wght@400;700&family=Lovers+Quarrel&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&family=Raleway:ital,wght@0,100..900;1,100..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet" />
+  </head>
+
+  <body>
+    {% include 'components/header_two.html' %}
+
+    {% for message in messages %}
+      {% if message.tags == 'success' %}
+        <div id="modal-overlay" class="w-screen h-screen fixed flex justify-center items-center inset-0 bg-gray-500 bg-opacity-50 z-[50]">
+          <div class="w-96 h-fit absolute raleway bg-white rounded-[10px] border-2 border-solid border-[#c95902] flex flex-col items-start justify-between p-[20px] gap-[15px] cookies-card z-[100]">
+            <p class="text-xl font-bold text-[#c95902]">Login Successful</p>
+            <p class="text-base">{{ message }}</p>
+            <div class="w-full h-auto flex items-center justify-between gap-[20px]">
+              <a href="../backer/dashboard" onclick="closeModal()" class="w-[50%] px-0 py-2 bg-[#c95902] text-white border-none text-center rounded-md cursor-pointer hover:bg-[hsl(20,100%,39%)] transition-all duration-300 ease-in-out">Go To Dashboard</a>
+              <a href="../accounts/logout" onclick="closeModal()" class="w-[50%] px-0 py-2 bg-gray-200 text-black border-none text-center rounded-md cursor-pointer hover:bg-gray-300 transition-all duration-300 ease-in-out">Logout</a>
+            </div>
+            <button onclick="closeModal()" class="w-[18px] h-[18px] flex items-center justify-center bg-transparent border-none rounded-md cursor-pointer absolute top-6 right-4">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 162 162" class="svgIconCross">
+                <path stroke-linecap="round" stroke-width="15" stroke="#c95902" d="M9.01074 8.98926L153.021 153"></path>
+                <path stroke-linecap="round" stroke-width="15" stroke="#c95902" d="M9.01074 153L153.021 8.98926"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
+
+    {% comment %}script for close modal{% endcomment %}
+    <script>
+      function closeModal() {
+        document.getElementById('modal-overlay').classList.add('hidden')
+      }
+    </script>
+
+    <section class="w-full h-auto">
+      <div class="w-full h-[85vh] mt-[-5vh] flex flex-col justify-center items-center gap-10 raleway">
+        <span class="px-10 py-3 rounded-3xl bg-[#FFE5CC] text-[#DC5F00] text-xl">#1 trusted fund-raising platform</span>
+        <span class="px-[10rem] text-center text-[#DC5F00] text-7xl ubuntu">Unlock your financial potential by investing or backing</span>
+        <span class="text-2xl text-center px-[10rem]">Discover early-stage innovations and invest in high-potential projects from verified creators. Our secure platform ensures transparency, seamless transactions, and smart portfolio tracking — so you can fund what matters, and watch it grow.</span>
+
+        <div class="w-fit h-[45px] flex items-center bg-[#DC5F00] rounded-md p-2 box-content">
+          <input type="text" name="text" class="w-[25rem] h-full border-none outline-none pl-[15px] bg-[#DC5F00] text-white text-lg placeholder-white placeholder-opacity-70 focus:outline-none focus:ring-0" placeholder="Search Campaign by Category" />
+          <button class="w-[95px] h-full flex items-center justify-center relative transition-all duration-300 border-none rounded-md text-black cursor-pointer bg-white overflow-hidden hover:text-white group/btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="10" viewBox="0 0 38 15" class="absolute mr-[150px] transition-all duration-300 group-hover/btn:mr-0 group-hover/btn:origin-right group-hover/btn:animate-jello-vertical">
+              <path d="M10 7.519l-.939-.344h0l.939.344zm14.386-1.205l-.981-.192.981.192zm1.276 5.509l.537.843.148-.094.107-.139-.792-.611zm4.819-4.304l-.385-.923h0l.385.923zm7.227.707a1 1 0 0 0 0-1.414L31.343.448a1 1 0 0 0-1.414 0 1 1 0 0 0 0 1.414l5.657 5.657-5.657 5.657a1 1 0 0 0 1.414 1.414l6.364-6.364zM1 7.519l.554.833.029-.019.094-.061.361-.23 1.277-.77c1.054-.609 2.397-1.32 3.629-1.787.617-.234 1.17-.392 1.623-.455.477-.066.707-.008.788.034.025.013.031.021.039.034a.56.56 0 0 1 .058.235c.029.327-.047.906-.39 1.842l1.878.689c.383-1.044.571-1.949.505-2.705-.072-.815-.45-1.493-1.16-1.865-.627-.329-1.358-.332-1.993-.244-.659.092-1.367.305-2.056.566-1.381.523-2.833 1.297-3.921 1.925l-1.341.808-.385.245-.104.068-.028.018c-.011.007-.011.007.543.84zm8.061-.344c-.198.54-.328 1.038-.36 1.484-.032.441.024.94.325 1.364.319.45.786.64 1.21.697.403.054.824-.001 1.21-.09.775-.179 1.694-.566 2.633-1.014l3.023-1.554c2.115-1.122 4.107-2.168 5.476-2.524.329-.086.573-.117.742-.115s.195.038.161.014c-.15-.105.085-.139-.076.685l1.963.384c.192-.98.152-2.083-.74-2.707-.405-.283-.868-.37-1.28-.376s-.849.069-1.274.179c-1.65.43-3.888 1.621-5.909 2.693l-2.948 1.517c-.92.439-1.673.743-2.221.87-.276.064-.429.065-.492.057-.043-.006.066.003.155.127.07.099.024.131.038-.063.014-.187.078-.49.243-.94l-1.878-.689zm14.343-1.053c-.361 1.844-.474 3.185-.413 4.161.059.95.294 1.72.811 2.215.567.544 1.242.546 1.664.459a2.34 2.34 0 0 0 .502-.167l.15-.076.049-.028.018-.011c.013-.008.013-.008-.524-.852l-.536-.844.019-.012c-.038.018-.064.027-.084.032-.037.008.053-.013.125.056.021.02-.151-.135-.198-.895-.046-.734.034-1.887.38-3.652l-1.963-.384zm2.257 5.701l.791.611.024-.031.08-.101.311-.377 1.093-1.213c.922-.954 2.005-1.894 2.904-2.27l-.771-1.846c-1.31.547-2.637 1.758-3.572 2.725l-1.184 1.314-.341.414-.093.117-.025.032c-.01.013-.01.013.781.624zm5.204-3.381c.989-.413 1.791-.42 2.697-.307.871.108 2.083.385 3.437.385v-2c-1.197 0-2.041-.226-3.19-.369-1.114-.139-2.297-.146-3.715.447l.771 1.846z"></path>
+            </svg>Search
+          </button>
+        </div>
+
+      </div>
+    </section>
+  </body>
+</html>

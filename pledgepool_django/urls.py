@@ -22,6 +22,8 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('pledgepool.urls')),
+    path('backer/', include('backer.urls')),
+    path('creator/', include('creator.urls')),
     path('accounts/', include('accounts.urls')),
     path('projects/', include('projects.urls')),
     path('joinus/', include('joinus.urls')),

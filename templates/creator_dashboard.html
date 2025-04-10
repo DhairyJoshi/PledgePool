@@ -1,0 +1,95 @@
+{% load static tailwind_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PledgePool</title>
+
+    {% tailwind_css %}
+
+    <link rel="stylesheet" href="{% static 'css/fonts.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/trendingSwiper.css' %}" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400..900;1,400..900&family=Alumni+Sans+Pinstripe:ital@0;1&family=Amatic+SC:wght@400;700&family=Lovers+Quarrel&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&family=Raleway:ital,wght@0,100..900;1,100..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet" />
+  </head>
+
+  <body>
+    {% include 'components/header_two.html' %}
+
+    {% for message in messages %}
+      {% if message.tags == 'success' %}
+        <div id="modal-overlay" class="w-screen h-screen fixed flex justify-center items-center inset-0 bg-gray-500 bg-opacity-50 z-[50]">
+          <div class="w-96 h-fit absolute raleway bg-white rounded-[10px] border-2 border-solid border-[#c95902] flex flex-col items-start justify-between p-[20px] gap-[15px] cookies-card z-[100]">
+            <p class="text-xl font-bold text-[#c95902]">Login Successful</p>
+            <p class="text-base">{{ message }}</p>
+            <div class="w-full h-auto flex items-center justify-between gap-[20px]">
+              <a href="../creator-dashboard" onclick="closeModal()" class="w-[50%] px-0 py-2 bg-[#c95902] text-white border-none text-center rounded-md cursor-pointer hover:bg-[#c84100] transition-all duration-300 ease-in-out">Go To Dashboard</a>
+              <a href="accounts/logout" onclick="closeModal()" class="w-[50%] px-0 py-2 bg-gray-200 text-black border-none text-center rounded-md cursor-pointer hover:bg-gray-300 transition-all duration-300 ease-in-out">Logout</a>
+            </div>
+            <button onclick="closeModal()" class="w-[18px] h-[18px] flex items-center justify-center bg-transparent border-none rounded-md cursor-pointer absolute top-6 right-4">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 162 162" class="svgIconCross">
+                <path stroke-linecap="round" stroke-width="15" stroke="#c95902" d="M9.01074 8.98926L153.021 153"></path>
+                <path stroke-linecap="round" stroke-width="15" stroke="#c95902" d="M9.01074 153L153.021 8.98926"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      {% elif message.tags == 'error' %}
+        <div id="modal-overlay" class="w-screen h-screen fixed flex justify-center items-center inset-0 bg-gray-500 bg-opacity-50 z-[50]">
+          <div class="w-96 h-fit absolute raleway bg-white rounded-[10px] border-2 border-solid border-[#c95902] flex flex-col items-start justify-between p-[20px] gap-[15px] cookies-card z-[100]">
+            <p class="text-xl font-bold text-[#c95902]">Invalid Credentials</p>
+            <p class="text-base">{{ message }}</p>
+            <div class="w-full h-auto flex items-center justify-between gap-[20px]">
+              <a href="#" onclick="closeModal()" class="w-[50%] px-0 py-2 bg-[#c95902] text-white border-none text-center rounded-md cursor-pointer hover:bg-[#c84100] transition-all duration-300 ease-in-out">Forgot Password?</a>
+              <a href="register" onclick="closeModal()" class="w-[50%] px-0 py-2 bg-gray-200 text-black border-none text-center rounded-md cursor-pointer hover:bg-gray-300 transition-all duration-300 ease-in-out">Register</a>
+            </div>
+            <button onclick="closeModal()" class="w-[18px] h-[18px] flex items-center justify-center bg-transparent border-none rounded-md cursor-pointer absolute top-6 right-4">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 162 162" class="svgIconCross">
+                <path stroke-linecap="round" stroke-width="15" stroke="#c95902" d="M9.01074 8.98926L153.021 153"></path>
+                <path stroke-linecap="round" stroke-width="15" stroke="#c95902" d="M9.01074 153L153.021 8.98926"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
+
+    {% comment %}script for close modal{% endcomment %}
+    <script>
+      function closeModal() {
+        document.getElementById('modal-overlay').classList.add('hidden')
+      }
+    </script>
+    
+    <section class="w-full h-auto">
+      <div class="w-full h-[85vh] mt-[-5vh] flex flex-col justify-center items-center gap-10 raleway">
+        <span class="px-10 py-3 rounded-3xl bg-[#FFE5CC] text-[#DC5F00] text-xl">#1 trusted fund-raising platform</span>
+        <span class="px-[10rem] text-center text-[#DC5F00] text-7xl ubuntu">Bring your vision to life with support from real investors</span>
+        <span class="text-2xl text-center px-[10rem]">Launch your project with confidence and connect with a community of passionate backers. Our secure platform offers transparent funding, milestone-based payouts, and smart tools to manage your campaign and growth — so you can focus on building what matters.</span>
+
+        <div class="w-full h-auto flex justify-center items-center gap-20 px-20">
+          <div class="w-1/2 h-auto relative flex flex-col py-10 px-6 gap-4 rounded-xl border-2 border-[#DC5F00]">
+            <span class="text-4xl">Empower Your Vision</span>
+            <span class="text-xl">Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate impedit sunt repudiandae distinctio dolorem, modi dolores accusamus quis dignissimos quidem!</span>
+            <button class="w-fit bg-[#DC5F00] text-white text-xl px-4 py-2 rounded-lg">
+              Get Funded Today
+            </button>
+          </div>
+
+          <div class="w-1/2 h-auto relative flex flex-col py-10 px-6 gap-4 rounded-xl border-2 border-[#DC5F00]">
+            <span class="text-4xl">Empower Your Vision</span>
+            <span class="text-xl">Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate impedit sunt repudiandae distinctio dolorem, modi dolores accusamus quis dignissimos quidem!</span>
+            <button class="w-fit bg-[#DC5F00] text-white text-xl px-4 py-2 rounded-lg">
+              Get Funded Today
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
