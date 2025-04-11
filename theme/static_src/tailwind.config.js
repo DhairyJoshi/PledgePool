@@ -5,6 +5,8 @@
  * https://unpkg.com/browse/tailwindcss@latest/stubs/defaultConfig.stub.js
  */
 
+const plugin = require('tailwindcss/plugin');
+
 module.exports = {
     content: [
         /* Templates within theme app */
@@ -38,5 +40,20 @@ module.exports = {
         require('@tailwindcss/forms'),
         require('@tailwindcss/typography'),
         require('@tailwindcss/aspect-ratio'),
+        plugin(function ({ addUtilities }) {
+            const newUtilities = {
+                '.custom-text-stroke': {
+                    color: 'transparent',
+                    '-webkit-text-stroke-width': '2px',
+                    '-webkit-text-stroke-color': '#DC5F00',
+                    'text-stroke-width': '2px',
+                    'text-stroke-color': '#DC5F00',
+                },
+            };
+            addUtilities(newUtilities, ['responsive']);
+        }),
+        plugin(function ({ addVariant }) {
+            addVariant('has-checked', '&:has(input:checked)');
+        }),
     ],
 };
