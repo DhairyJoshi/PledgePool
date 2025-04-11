@@ -4,6 +4,5 @@ from django.contrib import messages
 
 def dashboard(request):
     if request.session.get('role') != 'creator':
-        messages.error(request, "You are not authorized to view this page.")
-        return redirect('login')
+        return redirect('access-denied')
     return render(request, 'creator_dashboard.html')

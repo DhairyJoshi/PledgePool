@@ -4,6 +4,5 @@ from django.contrib import messages
 
 def dashboard(request):
     if request.session.get('role') != 'backer':
-        messages.error(request, "You are not authorized to view this page.")
-        return redirect('login')
+        return redirect('access-denied')
     return render(request, 'backer_dashboard.html')

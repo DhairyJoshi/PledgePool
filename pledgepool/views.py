@@ -13,5 +13,10 @@ def home(request):
     
     return render(request, 'index.html')
 
+
+def accessDenied(request):
+    return render(request, 'access-denied.html')
+
+
 def services(request):
     return render(request, 'services.html')
