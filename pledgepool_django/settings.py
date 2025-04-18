@@ -26,10 +26,13 @@ MEDIA_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..',
 SECRET_KEY = 'django-insecure-s0@4pkss9tn8!c5ct(fyt(%r(u3uxa5dl7kc)7_h%gi!%6lsw9'
 
 # SECURITY WARNING: don't run with debug turned on in production!
+# DEBUG = False
+
+# ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -41,7 +44,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'tailwind',
+    'backer',
+    'creator',
+    'joinus',
     'theme',
+    'projects',
     'pledgepool',
     'accounts',
     'django_browser_reload',
