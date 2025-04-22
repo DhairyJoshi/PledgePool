@@ -21,6 +21,7 @@ class Campaign(models.Model):
     category = models.CharField(max_length=100)
     funding_goal = models.DecimalField(max_digits=12, decimal_places=2)
     achieved_funding = models.DecimalField(max_digits=12, decimal_places=2)
+    total_pledges = models.IntegerField()
     description = models.TextField()
     start_date = models.DateField()
     end_date = models.DateField()

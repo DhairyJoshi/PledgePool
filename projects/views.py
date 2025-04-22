@@ -48,6 +48,7 @@ def createproject(request):
                 category=category,
                 funding_goal=funding_goal,
                 achieved_funding = 0,
+                total_pledges = 0,
                 description=description,
                 start_date=start_date,
                 end_date=end_date,
