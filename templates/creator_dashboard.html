@@ -5,7 +5,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PledgePool</title>
+    <title>PledgePool - Dashboard</title>
 
     {% tailwind_css %}
 
@@ -28,7 +28,7 @@
             <p class="text-xl font-bold text-[#c95902]">Login Successful</p>
             <p class="text-base">{{ message }}</p>
             <div class="w-full h-auto flex items-center justify-between gap-[20px]">
-              <a href="../creator-dashboard" onclick="closeModal()" class="w-[50%] px-0 py-2 bg-[#c95902] text-white border-none text-center rounded-md cursor-pointer hover:bg-[#c84100] transition-all duration-300 ease-in-out">Go To Dashboard</a>
+              <a href="../creator/dashboard" onclick="closeModal()" class="w-[50%] px-0 py-2 bg-[#c95902] text-white border-none text-center rounded-md cursor-pointer hover:bg-[#c84100] transition-all duration-300 ease-in-out">Go To Dashboard</a>
               <a href="accounts/logout" onclick="closeModal()" class="w-[50%] px-0 py-2 bg-gray-200 text-black border-none text-center rounded-md cursor-pointer hover:bg-gray-300 transition-all duration-300 ease-in-out">Logout</a>
             </div>
             <button onclick="closeModal()" class="w-[18px] h-[18px] flex items-center justify-center bg-transparent border-none rounded-md cursor-pointer absolute top-6 right-4">
@@ -75,7 +75,7 @@
           <div class="relative w-[100%] lg:w-[50%] h-auto flex flex-col p-4 gap-7 justify-between items-center rounded-md text-black border border-[#DC5F00] backdrop-blur-md">
             <span class="text-4xl text-center">Launch Your Dream Project</span>
             <span class="text-xl text-center">Turn your passion into reality. Whether it's a short film, a board game, or a groundbreaking invention — we're here to help you get funded and go live.</span>
-            <a href="/" class="w-fit relative inline-block px-4 lg:px-8 py-2 lg:py-4 text-white cursor-pointer overflow-hidden border-2 border-solid border-[#DC5F00] bg-[#DC5F00] transition-colors duration-500 z-[1] rounded-lg raleway text-xl before:content-[''] before:absolute before:top-full before:left-full before:z-[-1] before:bg-white before:h-[18.75rem] before:w-[25rem] before:rounded-[50%] before:transition-all before:duration-700 hover:text-[#DC5F00] hover:before:top-[-3.75rem] hover:before:left-[-3.75rem] active:before:bg-white active:before:transition-all active:before:duration-0">Create campaign</a>
+            <a href="../projects/create" class="w-fit relative inline-block px-4 lg:px-8 py-2 lg:py-4 text-white cursor-pointer overflow-hidden border-2 border-solid border-[#DC5F00] bg-[#DC5F00] transition-colors duration-500 z-[1] rounded-lg raleway text-xl before:content-[''] before:absolute before:top-full before:left-full before:z-[-1] before:bg-white before:h-[18.75rem] before:w-[25rem] before:rounded-[50%] before:transition-all before:duration-700 hover:text-[#DC5F00] hover:before:top-[-3.75rem] hover:before:left-[-3.75rem] active:before:bg-white active:before:transition-all active:before:duration-0">Create campaign</a>
           </div>
         </div>
       </div>

@@ -4,3 +4,7 @@ from django.shortcuts import render, redirect
 
 def viewprojects(request):
     return render(request, 'viewprojects.html')
+
+
+def createproject(request):
+    return render(request, 'create_project.html')
