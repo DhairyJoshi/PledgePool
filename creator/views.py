@@ -38,6 +38,15 @@ def myprojects(request):
         else:
             project.days_left = 0
 
+        # Calculate remaining amount
+        project.remaining_amount = max(project.funding_goal - project.achieved_funding, 0)
+
+        if project.funding_goal > 0:
+            progress = (project.achieved_funding / project.funding_goal) * 100
+            project.campaign_progress = min(round(progress, 2), 100)  # Cap at 100%
+        else:
+            project.campaign_progress = 0
+
     return render(request, 'creator_projects.html', {
         'projects': projects
     })

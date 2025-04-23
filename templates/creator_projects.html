@@ -20,29 +20,19 @@
   <body>
     {% include 'components/header_two.html' %}
 
-    <section class="text-gray-600 body-font overflow-hidden">
-      <div class="flex flex-wrap justify-center items-center">
+    <section class="text-gray-600 raleway">
+      <span class="mx-10 text-4xl text-[#DC5F00]">My Projects</span>
+      <div class="flex flex-wrap justify-start items-center gap-10 mx-10">
         {% if projects %}
           {% for project in projects %}
-            {% include 'components/project.html' with image_loc=project.campaign_cover.url description=project.description pledgee=project.creator.username achieved_amount=project.achieved_funding total_amount=project.funding_goal progress='0%' days_left=project.days_left no_of_pledges=project.total_pledges %}
+            {% include 'components/project_two.html' with image_loc=project.campaign_cover.url title=project description=project.description achieved_amount=project.achieved_funding total_amount=project.funding_goal remaining_amount=project.remaining_amount progress=project.campaign_progress days_left=project.days_left no_of_pledges=project.total_pledges %}
           {% endfor %}
         {% else %}
-          <p>No projects found for this filter.</p>
+          <div class="w-full h-[70vh] flex flex-col justify-center items-center gap-4 my-4">
+            <span class="text-xl">You haven't created any projects yet</span>
+            <a href="../projects/create" class="w-fit relative inline-block px-4 lg:px-8 py-2 lg:py-4 text-white cursor-pointer overflow-hidden border-2 border-solid border-[#DC5F00] bg-[#DC5F00] transition-colors duration-500 z-[1] rounded-lg raleway text-xl before:content-[''] before:absolute before:top-full before:left-full before:z-[-1] before:bg-white before:h-[18.75rem] before:w-[25rem] before:rounded-[50%] before:transition-all before:duration-700 hover:text-[#DC5F00] hover:before:top-[-3.75rem] hover:before:left-[-3.75rem] active:before:bg-white active:before:transition-all active:before:duration-0">Create campaign</a>
+          </div>
         {% endif %}
-
-        {% include 'components/project.html' with image_loc='../static/images/trending/image1.jpg' description='Developing an AI-powered learning platform for students' pledgee='Alex Johnson' achieved_amount='10,37,500' total_amount='20,75,000' progress='50%' days_left='15' no_of_pledges='120' %}
-
-        {% include 'components/project.html' with image_loc='../static/images/trending/image2.jpg' description='Funding a short film about environmental awareness' pledgee='Sarah Lee' achieved_amount='1,24,500' total_amount='12,45,000' progress='10%' days_left='20' no_of_pledges='95' %}
-
-        {% include 'components/project.html' with image_loc='../static/images/trending/image3.jpg' description='Launching a new sustainable clothing brand' pledgee='Mark Thompson' achieved_amount='4,31,600' total_amount='8,30,000' progress='52%' days_left='25' no_of_pledges='75' %}
-
-        {% include 'components/project.html' with image_loc='../static/images/trending/image4.jpg' description='Providing medical aid to underprivileged communities' pledgee='Dr. Emily Carter' achieved_amount='15,18,900' total_amount='24,90,000' progress='61%' days_left='10' no_of_pledges='200' %}
-
-        {% include 'components/project.html' with image_loc='../static/images/trending/image5.jpg' description='Building a mobile app for mental health support' pledgee='Jake Williams' achieved_amount='5,35,350' total_amount='9,96,000' progress='54%' days_left='18' no_of_pledges='85' %}
-
-        {% include 'components/project.html' with image_loc='../static/images/trending/image6.jpg' description='Supporting an indie game development project' pledgee='Chris Anderson' achieved_amount='8,21,700' total_amount='16,60,000' progress='49%' days_left='12' no_of_pledges='110' %}
-
-        {% include 'components/project.html' with image_loc='../static/images/trending/image7.jpg' description='Crowdfunding a community library in a rural area' pledgee='Olivia Martinez' achieved_amount='3,15,400' total_amount='6,22,500' progress='51%' days_left='22' no_of_pledges='65' %}
       </div>
     </section>
   </body>
