@@ -1,0 +1,137 @@
+{% load static tailwind_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PledgePool - Projects</title>
+
+    {% tailwind_css %}
+
+    <link rel="stylesheet" href="{% static 'css/fonts.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400..900;1,400..900&family=Alumni+Sans+Pinstripe:ital@0;1&family=Amatic+SC:wght@400;700&family=Lovers+Quarrel&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&family=Raleway:ital,wght@0,100..900;1,100..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet" />
+  </head>
+
+  <body>
+    {% include 'components/header_three.html' %}
+
+    {% for message in messages %}
+      {% if message.tags == 'success' %}
+        <div id="modal-overlay" class="w-screen h-screen fixed flex justify-center items-center inset-0 bg-gray-500 bg-opacity-50 z-[50]">
+          <div class="w-96 h-fit absolute raleway bg-white rounded-[10px] border-2 border-solid border-[#DC5F00] flex flex-col items-start justify-between p-[20px] gap-[15px] cookies-card z-[100]">
+            <p class="text-xl font-bold text-[#DC5F00]">Pledge Successful</p>
+            <p class="text-base">{{ message }}</p>
+            <div class="w-full h-auto flex items-center justify-between gap-[20px]">
+              <a href="../../../backer/dashboard" onclick="closeModal()" class="w-[50%] px-0 py-2 bg-[#DC5F00] text-white border-none text-center rounded-md cursor-pointer hover:bg-[#c84100] transition-all duration-300 ease-in-out">Go To Dashboard</a>
+              <a href="../../../projects/view" onclick="closeModal()" class="w-[50%] px-0 py-2 bg-gray-200 text-black border-none text-center rounded-md cursor-pointer hover:bg-gray-300 transition-all duration-300 ease-in-out">View Projects</a>
+            </div>
+            <button onclick="closeModal()" class="w-[18px] h-[18px] flex items-center justify-center bg-transparent border-none rounded-md cursor-pointer absolute top-6 right-4">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 162 162" class="svgIconCross">
+                <path stroke-linecap="round" stroke-width="15" stroke="#DC5F00" d="M9.01074 8.98926L153.021 153"></path>
+                <path stroke-linecap="round" stroke-width="15" stroke="#DC5F00" d="M9.01074 153L153.021 8.98926"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      {% elif message.tags == 'error' %}
+        <div id="modal-overlay" class="w-screen h-screen fixed flex justify-center items-center inset-0 bg-gray-500 bg-opacity-50 z-[50]">
+          <div class="w-96 h-fit absolute raleway bg-white rounded-[10px] border-2 border-solid border-[#DC5F00] flex flex-col items-start justify-between p-[20px] gap-[15px] cookies-card z-[100]">
+            <p class="text-xl font-bold text-[#DC5F00]">Unknown Error</p>
+            <p class="text-base">{{ message }}</p>
+            <div class="w-full h-auto flex items-center justify-between gap-[20px]">
+              <a href="../../../backer/dashboard" onclick="closeModal()" class="w-[50%] px-0 py-2 bg-[#DC5F00] text-white border-none text-center rounded-md cursor-pointer hover:bg-[#c84100] transition-all duration-300 ease-in-out">Go To Dashboard</a>
+              <a href="../../../projects/view" onclick="closeModal()" class="w-[50%] px-0 py-2 bg-gray-200 text-black border-none text-center rounded-md cursor-pointer hover:bg-gray-300 transition-all duration-300 ease-in-out">View Projects</a>
+            </div>
+            <button onclick="closeModal()" class="w-[18px] h-[18px] flex items-center justify-center bg-transparent border-none rounded-md cursor-pointer absolute top-6 right-4">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 162 162" class="svgIconCross">
+                <path stroke-linecap="round" stroke-width="15" stroke="#DC5F00" d="M9.01074 8.98926L153.021 153"></path>
+                <path stroke-linecap="round" stroke-width="15" stroke="#DC5F00" d="M9.01074 153L153.021 8.98926"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
+
+    <div id="message-overlay" class="hidden w-screen h-screen fixed justify-center items-center inset-0 bg-gray-500 bg-opacity-50 z-[50]">
+      <div class="w-[25rem] h-fit absolute raleway bg-white rounded-[10px] border-2 border-solid border-[#DC5F00] flex flex-col items-start justify-between p-[20px] gap-[15px] cookies-card z-[100]">
+        <form class="w-full mx-auto" method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+
+          <div class="mb-5">
+            <label for="amount" class="block mb-2 text-sm font-medium text-gray-900">Enter amount to pledge</label>
+            <input type="number" id="amount" name="amount" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#DC5F00] focus:border-[#DC5F00] block w-full p-2.5" placeholder="Enter Amount" style="-moz-appearance: textfield;" onwheel="this.blur()" min="0" required />
+          </div>
+          <div class="w-full flex justify-end gap-4 px-4 items-center">
+            <button type="submit" class="text-white focus:ring-4 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center bg-[#DC5F00] hover:bg-[#c84100]">Pledge</button>
+
+            <button type="button" onclick="closeMessage()" class="text-white focus:ring-4 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center bg-gray-400 hover:bg-gray-500">Close</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      function closeMessage() {
+        document.getElementById('message-overlay').classList.add('hidden')
+        document.getElementById('message-overlay').classList.remove('flex')
+      }
+
+      function closeModal() {
+        document.getElementById('modal-overlay').classList.add('hidden')
+      }
+      
+      function openMessage() {
+        document.getElementById('message-overlay').classList.add('flex')
+        document.getElementById('message-overlay').classList.remove('hidden')
+      }
+    </script>
+
+    <section class="py-8 bg-white md:py-16 raleway">
+      <div class="max-w-screen-xl px-4 mx-auto 2xl:px-0">
+        <div class="lg:grid lg:grid-cols-2 lg:gap-8 xl:gap-16">
+          <div class="shrink-0 max-w-md lg:max-w-lg mx-auto">
+            <img class="w-full" src="{{ project.campaign_cover.url }}" alt="" />
+          </div>
+
+          <div class="mt-6 sm:mt-8 lg:mt-0">
+            <span class="text-3xl font-semibold text-[#DC5F00]">{{ project.title }}</span>
+            <div class="mt-4 sm:items-center sm:gap-4 sm:flex">
+              <p class="text-xl text-gray-900">
+                Goal, <span class="text-base">INR {{ project.funding_goal }}</span>
+              </p>
+            </div>
+            <div class="mt-4 sm:items-center sm:gap-4 sm:flex">
+              <p class="text-xl text-gray-900">
+                Created By, <span class="text-base">{{ project.creator }}</span>
+              </p>
+            </div>
+            <div class="w-fit px-3 py-2 my-2 border-2 text-gray-600 border-gray-400 rounded-lg raleway">{{ project.category }}</div>
+
+            <hr class="my-6 md:my-8 border-gray-800" />
+
+            <p class="mb-4 text-gray-500 text-2xl">Project Details:</p>
+            <p class="mb-4 text-gray-500">{{ project.description }}</p>
+            <p class="mb-4 text-gray-500">{{ project.detailed_description }}</p>
+            <p class="mb-4 text-gray-500">{{ project.problem_statement }}</p>
+            <p class="mb-4 text-gray-500">{{ project.funds_use }}</p>
+
+            <hr class="my-6 md:my-8 border-gray-800" />
+
+            <p class="mb-4 text-gray-500 text-2xl">Reward Details:</p>
+            <p class="mb-4 text-gray-500">{{ project.reward_title }}</p>
+            <p class="mb-4 text-gray-500">{{ project.reward_description }}</p>
+            <p class="mb-4 text-gray-500">Expected Delivery: {{ project.delivery }}</p>
+
+            <button type="button" onclick="openMessage()" class="w-full mt-4 px-4 py-3 text-xl bg-[#DC5F00] text-white rounded-md hover:bg-[#c84100] transition">Pledge</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

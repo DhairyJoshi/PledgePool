@@ -24,34 +24,34 @@
     {% for message in messages %}
       {% if message.tags == 'success' %}
         <div id="modal-overlay" class="w-screen h-screen fixed flex justify-center items-center inset-0 bg-gray-500 bg-opacity-50 z-[50]">
-          <div class="w-96 h-fit absolute raleway bg-white rounded-[10px] border-2 border-solid border-[#c95902] flex flex-col items-start justify-between p-[20px] gap-[15px] cookies-card z-[100]">
-            <p class="text-xl font-bold text-[#c95902]">Login Successful</p>
+          <div class="w-96 h-fit absolute raleway bg-white rounded-[10px] border-2 border-solid border-[#DC5F00] flex flex-col items-start justify-between p-[20px] gap-[15px] cookies-card z-[100]">
+            <p class="text-xl font-bold text-[#DC5F00]">Login Successful</p>
             <p class="text-base">{{ message }}</p>
             <div class="w-full h-auto flex items-center justify-between gap-[20px]">
-              <a href="../creator/dashboard" onclick="closeModal()" class="w-[50%] px-0 py-2 bg-[#c95902] text-white border-none text-center rounded-md cursor-pointer hover:bg-[#c84100] transition-all duration-300 ease-in-out">Go To Dashboard</a>
+              <a href="../creator/dashboard" onclick="closeModal()" class="w-[50%] px-0 py-2 bg-[#DC5F00] text-white border-none text-center rounded-md cursor-pointer hover:bg-[#c84100] transition-all duration-300 ease-in-out">Go To Dashboard</a>
               <a href="accounts/logout" onclick="closeModal()" class="w-[50%] px-0 py-2 bg-gray-200 text-black border-none text-center rounded-md cursor-pointer hover:bg-gray-300 transition-all duration-300 ease-in-out">Logout</a>
             </div>
             <button onclick="closeModal()" class="w-[18px] h-[18px] flex items-center justify-center bg-transparent border-none rounded-md cursor-pointer absolute top-6 right-4">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 162 162" class="svgIconCross">
-                <path stroke-linecap="round" stroke-width="15" stroke="#c95902" d="M9.01074 8.98926L153.021 153"></path>
-                <path stroke-linecap="round" stroke-width="15" stroke="#c95902" d="M9.01074 153L153.021 8.98926"></path>
+                <path stroke-linecap="round" stroke-width="15" stroke="#DC5F00" d="M9.01074 8.98926L153.021 153"></path>
+                <path stroke-linecap="round" stroke-width="15" stroke="#DC5F00" d="M9.01074 153L153.021 8.98926"></path>
               </svg>
             </button>
           </div>
         </div>
       {% elif message.tags == 'error' %}
         <div id="modal-overlay" class="w-screen h-screen fixed flex justify-center items-center inset-0 bg-gray-500 bg-opacity-50 z-[50]">
-          <div class="w-96 h-fit absolute raleway bg-white rounded-[10px] border-2 border-solid border-[#c95902] flex flex-col items-start justify-between p-[20px] gap-[15px] cookies-card z-[100]">
-            <p class="text-xl font-bold text-[#c95902]">Invalid Credentials</p>
+          <div class="w-96 h-fit absolute raleway bg-white rounded-[10px] border-2 border-solid border-[#DC5F00] flex flex-col items-start justify-between p-[20px] gap-[15px] cookies-card z-[100]">
+            <p class="text-xl font-bold text-[#DC5F00]">Invalid Credentials</p>
             <p class="text-base">{{ message }}</p>
             <div class="w-full h-auto flex items-center justify-between gap-[20px]">
-              <a href="#" onclick="closeModal()" class="w-[50%] px-0 py-2 bg-[#c95902] text-white border-none text-center rounded-md cursor-pointer hover:bg-[#c84100] transition-all duration-300 ease-in-out">Forgot Password?</a>
+              <a href="#" onclick="closeModal()" class="w-[50%] px-0 py-2 bg-[#DC5F00] text-white border-none text-center rounded-md cursor-pointer hover:bg-[#c84100] transition-all duration-300 ease-in-out">Forgot Password?</a>
               <a href="register" onclick="closeModal()" class="w-[50%] px-0 py-2 bg-gray-200 text-black border-none text-center rounded-md cursor-pointer hover:bg-gray-300 transition-all duration-300 ease-in-out">Register</a>
             </div>
             <button onclick="closeModal()" class="w-[18px] h-[18px] flex items-center justify-center bg-transparent border-none rounded-md cursor-pointer absolute top-6 right-4">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 162 162" class="svgIconCross">
-                <path stroke-linecap="round" stroke-width="15" stroke="#c95902" d="M9.01074 8.98926L153.021 153"></path>
-                <path stroke-linecap="round" stroke-width="15" stroke="#c95902" d="M9.01074 153L153.021 8.98926"></path>
+                <path stroke-linecap="round" stroke-width="15" stroke="#DC5F00" d="M9.01074 8.98926L153.021 153"></path>
+                <path stroke-linecap="round" stroke-width="15" stroke="#DC5F00" d="M9.01074 153L153.021 8.98926"></path>
               </svg>
             </button>
           </div>

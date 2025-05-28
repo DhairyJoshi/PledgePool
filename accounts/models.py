@@ -15,3 +15,6 @@ class pledgepool_user(models.Model):
     birthdate = models.DateField(default=datetime.date.today)
     pfp = models.ImageField(upload_to=upload_to_pfps, blank=True, null=True)
     description = models.TextField()
+
+    def __str__(self):
+        return self.name 

@@ -1,206 +1,154 @@
-let currentSlide = 0
-const slider = document.getElementById('slider')
-const slides = document.querySelectorAll('#slider .section-tab')
-const totalSlides = slides.length
-const prevBtn = document.getElementById('prevBtn')
-const nextBtn = document.getElementById('nextBtn')
+// Enhanced Campaign Slider Validation Script
+let currentSlide = 0;
+const slider = document.getElementById('slider');
+const slides = document.querySelectorAll('#slider .section-tab');
+const totalSlides = slides.length;
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
 
-// Set slider width dynamically based on number of slides
 function setSliderWidth() {
-    const containerWidth = document.getElementById('slider-container').offsetWidth
-    slider.style.width = `${containerWidth * totalSlides}px`
-    slides.forEach((slide) => {
-        slide.style.width = `${containerWidth}px`
-    })
+    const containerWidth = document.getElementById('slider-container').offsetWidth;
+    slider.style.width = `${containerWidth * totalSlides}px`;
+    slides.forEach(slide => slide.style.width = `${containerWidth}px`);
 }
 
 function updateSlide() {
-    const slideWidth = document.getElementById('slider-container').offsetWidth
-    slider.style.transform = `translateX(-${slideWidth * currentSlide}px)`
-
-    prevBtn.disabled = currentSlide === 0
-    nextBtn.disabled = currentSlide === totalSlides - 1
-
-    // Highlight corresponding menu-tab
-    const tabs = document.querySelectorAll('.menu-tab')
-    tabs.forEach((tab, index) => {
-        if (index === currentSlide) {
-            tab.classList.remove('bg-white')
-            tab.classList.add('bg-gray-200')
-        } else {
-            tab.classList.remove('bg-gray-200')
-            tab.classList.add('bg-white')
-        }
-    })
+    const slideWidth = document.getElementById('slider-container').offsetWidth;
+    slider.style.transform = `translateX(-${slideWidth * currentSlide}px)`;
+    prevBtn.disabled = currentSlide === 0;
+    nextBtn.disabled = currentSlide === totalSlides - 1;
+    document.querySelectorAll('.menu-tab').forEach((tab, i) => {
+        tab.classList.toggle('bg-white', i !== currentSlide);
+        tab.classList.toggle('bg-gray-200', i === currentSlide);
+    });
 }
 
 function showSection(sectionId) {
     if (!areCurrentSlideFieldsValid()) {
-        showMessage({
-            title: 'Validation Error',
-            content: 'Please fill in all required fields before proceeding.'
-        })
-        return
+        return showMessage({ title: 'Validation Error', content: 'Please fill in all required fields before proceeding.' });
     }
-
-    const sectionIndex = Array.from(slides).findIndex((slide) => slide.id === sectionId)
+    const sectionIndex = [...slides].findIndex(slide => slide.id === sectionId);
     if (sectionIndex !== -1) {
-        currentSlide = sectionIndex
-        updateSlide()
+        currentSlide = sectionIndex;
+        updateSlide();
     }
 }
 
 function areCurrentSlideFieldsValid() {
-    const currentSection = slides[currentSlide]
-    const inputs = currentSection.querySelectorAll('input[required], textarea[required], select[required]')
-    let isValid = true
+    const currentSection = slides[currentSlide];
+    const inputs = currentSection.querySelectorAll('input[required], textarea[required], select[required]');
+    let isValid = true;
 
-    inputs.forEach((input) => {
-        if (!input.value.trim()) {
-            input.classList.add('border-red-500')
-            isValid = false
-        } else {
-            input.classList.remove('border-red-500')
-        }
-    })
+    inputs.forEach(input => {
+        input.classList.toggle('border-red-500', !input.value.trim());
+        if (!input.value.trim()) isValid = false;
+    });
 
-    const start = new Date(document.getElementById("start_date").value);
-    const end = new Date(document.getElementById("end_date").value);
-    const delivery = new Date(document.getElementById("delivery_date").value);
+    const today = new Date().setHours(0, 0, 0, 0);
+    const startEl = document.getElementById("start_date");
+    const endEl = document.getElementById("end_date");
+    const deliveryEl = document.getElementById("delivery_date");
 
-    if (start < new Date(today)) {
-        showMessage({
-            title: 'Validation Error',
-            content: 'Start date cannot be before today.'
-        })
-        e.preventDefault();
-    } else if (end <= start) {
-        showMessage({
-            title: 'Validation Error',
-            content: 'End date must be after the start date.'
-        })
-        e.preventDefault();
-    } else if (delivery <= start) {
-        showMessage({
-            title: 'Validation Error',
-            content: 'Delivery date must be after the start date.'
-        })
-        e.preventDefault();
+    if (startEl && endEl && deliveryEl) {
+        const start = new Date(startEl.value);
+        const end = new Date(endEl.value);
+        const delivery = new Date(deliveryEl.value);
+
+        if (start < today) return showMessage({ title: 'Validation Error', content: 'Start date cannot be before today.' }), false;
+        if (end <= start) return showMessage({ title: 'Validation Error', content: 'End date must be after the start date.' }), false;
+        if (delivery <= start) return showMessage({ title: 'Validation Error', content: 'Delivery date must be after the start date.' }), false;
     }
-    
-    return isValid
+
+    return isValid;
 }
 
 nextBtn.addEventListener('click', () => {
-    if (!areCurrentSlideFieldsValid()) {
-        showMessage({
-            title: 'Validation Error',
-            content: 'Please fill in all required fields before proceeding.'
-        })
-        return
-    }
-    if (currentSlide < totalSlides - 1) {
-        currentSlide++
-        updateSlide()
-    }
-})
+    if (!areCurrentSlideFieldsValid()) return showMessage({ title: 'Validation Error', content: 'Please fill in all required fields before proceeding.' });
+    if (currentSlide < totalSlides - 1) currentSlide++, updateSlide();
+});
 
-nextBtn.addEventListener('focus', (e) => {
-    if (!areCurrentSlideFieldsValid()) {
-        e.preventDefault()
-        nextBtn.blur()
-    }
-})
+nextBtn.addEventListener('focus', e => {
+    if (!areCurrentSlideFieldsValid()) e.preventDefault(), nextBtn.blur();
+});
 
-function trapFocusInCurrentSlide(e) {
-    const focusableElements = slides[currentSlide].querySelectorAll(
-        'input, textarea, select, button, [tabindex]:not([tabindex="-1"])'
-    )
-
-    const firstEl = focusableElements[0]
-    const lastEl = focusableElements[focusableElements.length - 1]
-
+document.addEventListener('keydown', e => {
+    const focusable = slides[currentSlide].querySelectorAll('input, textarea, select, button, [tabindex]:not([tabindex="-1"])');
+    const first = focusable[0], last = focusable[focusable.length - 1];
     if (e.key === 'Tab') {
-        if (e.shiftKey) {
-            if (document.activeElement === firstEl) {
-                e.preventDefault()
-                lastEl.focus()
-            }
-        } else {
-            if (document.activeElement === lastEl) {
-                e.preventDefault()
-                firstEl.focus()
-            }
-        }
+        if (e.shiftKey && document.activeElement === first) e.preventDefault(), last.focus();
+        else if (!e.shiftKey && document.activeElement === last) e.preventDefault(), first.focus();
     }
-}
-
-document.addEventListener('keydown', (e) => {
-    trapFocusInCurrentSlide(e)
-})
+});
 
 prevBtn.addEventListener('click', () => {
-    if (currentSlide > 0) {
-        currentSlide--
-        updateSlide()
-    }
-})
+    if (currentSlide > 0) currentSlide--, updateSlide();
+});
 
 window.addEventListener('resize', () => {
-    setSliderWidth()
-    updateSlide()
-})
+    setSliderWidth();
+    updateSlide();
+});
 
 window.onload = () => {
-    setSliderWidth()
-    updateSlide()
-}
+    setSliderWidth();
+    updateSlide();
+};
 
-const campaignCoverInput = document.getElementById('campaign_cover_input')
-const campaignCoverSpan = document.getElementById('campaign_cover_text')
-const campaignGalleryInput = document.getElementById('campaign_gallery_input')
-const campaignGallerySpan = document.getElementById('campaign_gallery_text')
+const campaignCoverInput = document.getElementById('campaign_cover_input');
+const campaignCoverText = document.getElementById('campaign_cover_text');
+const campaignCoverContainer = document.getElementById('campaign_cover_container');
+const campaignCoverClose = document.getElementById('campaign_cover_close');
 
 campaignCoverInput.addEventListener('change', function () {
-    if (campaignCoverInput.files.length > 0) {
-        campaignCoverSpan.textContent = campaignCoverInput.files[0].name
+    if (this.files.length > 0) {
+        campaignCoverContainer.style.display = "flex";
+        campaignCoverText.textContent = this.files[0].name;
     } else {
-        campaignCoverSpan.textContent = 'No file selected'
+        campaignCoverContainer.style.display = "none";
+        campaignCoverText.textContent = 'No file selected';
     }
-})
+});
+
+campaignCoverClose.addEventListener('click', function () {
+    campaignCoverInput.value = "";
+    campaignCoverContainer.style.display = "none";
+    campaignCoverText.textContent = 'No file selected';
+});
+
+const campaignGalleryInput = document.getElementById('campaign_gallery_input');
+const campaignGalleryTexts = document.getElementById('campaign_gallery_texts');
+const campaignGalleryContainer = document.getElementById('campaign_gallery_container');
+const campaignGalleryClose = document.getElementById('campaign_gallery_close');
 
 campaignGalleryInput.addEventListener('change', function () {
-    if (campaignGalleryInput.files.length > 0) {
-        campaignGallerySpan.textContent = campaignGalleryInput.files[0].name
+    if (this.files.length > 0) {
+        campaignGalleryContainer.style.display = "flex";
+        campaignGalleryTexts.innerHTML = '';
+        Array.from(this.files).forEach(file => {
+            const fileRow = document.createElement('div');
+            fileRow.className = 'w-full h-auto flex justify-between items-center bg-[#ffddbe] rounded-lg px-4 py-2';
+            const fileName = document.createElement('span');
+            fileName.className = 'text-md';
+            fileName.textContent = file.name;
+            const removeBtn = document.createElement('div');
+            removeBtn.className = 'w-8 h-8 cursor-pointer';
+            removeBtn.innerHTML = '✕';
+            removeBtn.addEventListener('click', () => fileRow.remove());
+            fileRow.append(fileName, removeBtn);
+            campaignGalleryTexts.appendChild(fileRow);
+        });
     } else {
-        campaignGallerySpan.textContent = 'No file selected'
+        campaignGalleryContainer.style.display = "none";
+        campaignGalleryTexts.innerHTML = '';
     }
-})
+});
 
-const dropdownButton = document.getElementById('dropdown-button')
-const dropdownOptions = document.getElementById('dropdown-options')
-const dropdownSelected = document.getElementById('dropdown-selected')
-const selectedCategoryInput = document.getElementById('selected-category')
+campaignGalleryClose.addEventListener('click', () => {
+    campaignGalleryInput.value = "";
+    campaignGalleryContainer.style.display = "none";
+    campaignGalleryTexts.innerHTML = '';
+});
 
-dropdownButton.addEventListener('click', () => {
-    dropdownOptions.classList.toggle('hidden')
-})
-
-dropdownOptions.querySelectorAll('li').forEach((item) => {
-    item.addEventListener('click', () => {
-        const value = item.getAttribute('data-value')
-        dropdownSelected.textContent = value
-        selectedCategoryInput.value = value
-        dropdownOptions.classList.add('hidden')
-    })
-})
-
-// Optional: Close dropdown if clicked outside
-document.addEventListener('click', (e) => {
-    if (!dropdownButton.contains(e.target) && !dropdownOptions.contains(e.target)) {
-        dropdownOptions.classList.add('hidden')
-    }
-})
 
 function showMessage({ title = '', content = '' }) {
     const messageOverlay = document.getElementById('message-overlay')
@@ -208,7 +156,7 @@ function showMessage({ title = '', content = '' }) {
     const messageContent = document.getElementById('message-content')
     const messageButton = document.getElementById('message-button')
 
-    // Reset previous styles and content
+    // Reset previous styles and startEl 
     messageTitle.textContent = title
     messageContent.textContent = content
     messageButton.onclick = closeMessage

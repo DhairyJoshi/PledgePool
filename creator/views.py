@@ -2,15 +2,11 @@ from django.shortcuts import render, redirect
 from accounts.models import pledgepool_user
 from projects.models import Campaign
 from django.utils import timezone
-from datetime import timedelta
 
 def dashboard(request):
     if request.session.get('role') != 'creator':
         return redirect('access-denied')
     return render(request, 'creator_dashboard.html')
-
-
-from datetime import timedelta
 
 def myprojects(request):
     if request.session.get('role') != 'creator':
