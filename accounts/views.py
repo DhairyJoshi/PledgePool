@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import pledgepool_user
 from django.db import IntegrityError
+from django.utils import timezone
 
 # Create your views here.
 
@@ -88,3 +89,85 @@ def login(request):
 def logout(request):
     request.session.flush()
     return render(request, 'logout.html')
+
+def profile(request):
+    if not request.session.get('user_id'):
+        return redirect('login')
+    
+    try:
+        user = pledgepool_user.objects.get(id=request.session.get('user_id'))
+    except pledgepool_user.DoesNotExist:
+        return redirect('login')
+    
+    return render(request, 'profile.html', {
+        'user': user
+    })
+
+def edit_profile(request):
+    if not request.session.get('user_id'):
+        return redirect('login')
+    
+    try:
+        user = pledgepool_user.objects.get(id=request.session.get('user_id'))
+    except pledgepool_user.DoesNotExist:
+        return redirect('login')
+    
+    if request.method == 'POST':
+        # Update user profile
+        user.name = request.POST.get('name', user.name)
+        user.email = request.POST.get('email', user.email)
+        user.phone = request.POST.get('phone', user.phone)
+        user.description = request.POST.get('description', user.description)
+        
+        # Handle profile picture upload
+        if 'pfp' in request.FILES:
+            user.pfp = request.FILES['pfp']
+        
+        try:
+            user.save()
+            messages.success(request, 'Profile updated successfully!')
+            return redirect('profile')
+        except Exception as e:
+            messages.error(request, f'Error updating profile: {str(e)}')
+    
+    return render(request, 'edit_profile.html', {
+        'user': user
+    })
+
+def settings(request):
+    if not request.session.get('user_id'):
+        return redirect('login')
+    
+    try:
+        user = pledgepool_user.objects.get(id=request.session.get('user_id'))
+    except pledgepool_user.DoesNotExist:
+        return redirect('login')
+    
+    if request.method == 'POST':
+        # Handle password change
+        current_password = request.POST.get('current_password')
+        new_password = request.POST.get('new_password')
+        confirm_password = request.POST.get('confirm_password')
+        
+        if current_password and new_password and confirm_password:
+            if user.password == current_password:  # In production, use proper password hashing
+                if new_password == confirm_password:
+                    user.password = new_password
+                    user.save()
+                    messages.success(request, 'Password changed successfully!')
+                else:
+                    messages.error(request, 'New passwords do not match!')
+            else:
+                messages.error(request, 'Current password is incorrect!')
+        
+        # Handle account deletion
+        if 'delete_account' in request.POST:
+            # Add confirmation logic here
+            user.delete()
+            request.session.flush()
+            messages.success(request, 'Account deleted successfully!')
+            return redirect('login')
+    
+    return render(request, 'settings.html', {
+        'user': user
+    })

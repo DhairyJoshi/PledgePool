@@ -1,4 +1,5 @@
 {% load static tailwind_tags %}
+{% load custom_filters %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -17,15 +18,64 @@
     <link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400..900;1,400..900&family=Alumni+Sans+Pinstripe:ital@0;1&family=Amatic+SC:wght@400;700&family=Lovers+Quarrel&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&family=Raleway:ital,wght@0,100..900;1,100..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet" />
   </head>
 
-  <body>
+  <body class="bg-[#FFF9F3] font-poppins min-h-screen text-[#333]">
     {% include 'components/header_two.html' %}
 
-    <section class="text-gray-600 body-font overflow-hidden">
-      <div class="flex flex-wrap justify-center items-center gap-6">
-        {% for project in projects %}
-          {% include 'components/project.html' with image_loc=project.campaign_cover.url title=project description=project.description achieved_amount=project.achieved_funding total_amount=project.funding_goal remaining_amount=project.remaining_amount progress=project.campaign_progress days_left=project.days_left no_of_pledges=project.total_pledges %}
-        {% endfor %}
-      </div>
-    </section>
+    <div class="w-full max-w-7xl mx-auto px-4 md:px-8 py-3 flex flex-col lg:flex-row gap-10">
+      <!-- Sidebar Categories -->
+      <aside class="w-full lg:w-64 lg:sticky top-8">
+        <div class="bg-white rounded-2xl shadow p-6">
+          <h2 class="text-xl font-semibold mb-5 text-[#DC5F00]">Categories</h2>
+          <ul class="flex flex-wrap lg:flex-col gap-2">
+            <li>
+              <a href="?category=All{% if search_query %}&search={{ search_query }}{% endif %}{% if sort_by %}&sort={{ sort_by }}{% endif %}" class="flex items-center justify-between px-4 py-2 text-sm md:text-base rounded-lg border w-full transition hover:bg-[#FFE5CC] {% if not selected_category or selected_category == 'All' %}bg-[#DC5F00] text-white border-[#DC5F00]{% else %}text-[#DC5F00] border-[#DC5F00]{% endif %}">
+                <span>All</span>
+                <span class="text-xs font-semibold">{{ total_count }}</span>
+              </a>
+            </li>
+            {% for cat in categories %}
+              <li>
+                <a href="?category={{ cat }}{% if search_query %}&search={{ search_query }}{% endif %}{% if sort_by %}&sort={{ sort_by }}{% endif %}" class="flex items-center justify-between px-4 py-2 text-sm md:text-base rounded-lg border w-full transition hover:bg-[#FFE5CC] {% if selected_category|lower == cat|lower %}bg-[#DC5F00] text-white border-[#DC5F00]{% else %}text-[#DC5F00] border-[#DC5F00]{% endif %}">
+                  <span>{{ cat }}</span>
+                  <span class="text-xs font-semibold">{{ category_counts|get_item:cat }}</span>
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="flex-1">
+        <!-- Search & Sort Bar -->
+        <form method="get" class="flex flex-col md:flex-row items-center gap-4 mb-8">
+          <input type="hidden" name="category" value="{{ selected_category|default:'All' }}">
+          <input type="text" name="search" placeholder="Search projects by title..." value="{{ search_query|default:'' }}" class="flex-1 w-full md:w-auto px-4 py-2 border border-[#DC5F00] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#DC5F00] text-sm" />
+          <div class="flex items-center gap-2">
+            <label for="sort" class="text-sm font-medium text-[#DC5F00]">Sort by:</label>
+            <select name="sort" id="sort" onchange="this.form.submit()" class="px-3 py-2 border border-[#DC5F00] rounded-lg bg-white text-[#DC5F00] text-sm focus:ring-2 focus:ring-[#DC5F00] focus:outline-none">
+              <option value="trending" {% if sort_by == 'trending' %}selected{% endif %}>Trending</option>
+              <option value="newest" {% if sort_by == 'newest' %}selected{% endif %}>Newest</option>
+              <option value="ending" {% if sort_by == 'ending' %}selected{% endif %}>Ending Soon</option>
+              <option value="funded" {% if sort_by == 'funded' %}selected{% endif %}>Most Funded</option>
+            </select>
+          </div>
+          <button type="submit" class="px-6 py-2 rounded-lg bg-[#DC5F00] text-white font-semibold hover:bg-[#b94a00] transition-all text-sm">Search</button>
+        </form>
+
+        <!-- Projects Grid -->
+        <section>
+          <div class="flex flex-wrap gap-4">
+            {% for project in projects %}
+              {% include 'components/project.html' with image_loc=project.campaign_cover.url title=project description=project.description achieved_amount=project.achieved_funding total_amount=project.funding_goal remaining_amount=project.remaining_amount progress=project.campaign_progress days_left=project.days_left no_of_pledges=project.total_pledges %}
+            {% empty %}
+              <div class="col-span-full flex flex-col items-center py-16 text-center">
+                <span class="text-2xl text-gray-400">No projects found for this filter.</span>
+              </div>
+            {% endfor %}
+          </div>
+        </section>
+      </main>
+    </div>
   </body>
 </html>

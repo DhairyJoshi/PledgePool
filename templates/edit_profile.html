@@ -1,0 +1,153 @@
+{% load static tailwind_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PledgePool - Edit Profile</title>
+
+    {% tailwind_css %}
+
+    <link rel="stylesheet" href="{% static 'css/fonts.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400..900;1,400..900&family=Alumni+Sans+Pinstripe:ital@0;1&family=Amatic+SC:wght@400;700&family=Lovers+Quarrel&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&family=Raleway:ital,wght@0,100..900;1,100..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet" />
+  </head>
+
+  <body class="bg-[#FFF9F3] font-poppins min-h-screen text-[#333]">
+    {% include 'components/header_two.html' %}
+
+    <div class="w-full max-w-4xl mx-auto px-4 md:px-8 py-8">
+      <!-- Messages -->
+      {% for message in messages %}
+        <div class="mb-6 p-4 rounded-lg {% if message.tags == 'success' %}bg-green-100 text-green-800 border border-green-200{% else %}bg-red-100 text-red-800 border border-red-200{% endif %}">
+          {{ message }}
+        </div>
+      {% endfor %}
+
+      <!-- Edit Profile Form -->
+      <div class="bg-white rounded-2xl shadow-md p-8">
+        <div class="flex items-center gap-4 mb-8">
+          <a href="{% url 'profile' %}" class="text-[#DC5F00] hover:text-[#b94a00] transition-all">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+            </svg>
+          </a>
+          <h1 class="text-3xl font-bold text-[#DC5F00]">Edit Profile</h1>
+        </div>
+
+        <form method="post" enctype="multipart/form-data" class="space-y-6">
+          {% csrf_token %}
+          
+          <!-- Profile Picture Section -->
+          <div class="flex flex-col items-center gap-4 p-6 border-2 border-dashed border-[#DC5F00] rounded-lg">
+            <div class="w-24 h-24 rounded-full overflow-hidden border-4 border-[#DC5F00]">
+              {% if user.pfp %}
+                <img src="{{ user.pfp.url }}" alt="Current Profile Picture" class="w-full h-full object-cover" id="preview-image" />
+              {% else %}
+                <div class="w-full h-full bg-[#FFE5CC] flex items-center justify-center" id="preview-placeholder">
+                  <span class="text-2xl text-[#DC5F00] font-bold">{{ user.name|first|upper }}</span>
+                </div>
+              {% endif %}
+            </div>
+            <div class="text-center">
+              <label for="pfp" class="cursor-pointer">
+                <span class="px-4 py-2 bg-[#DC5F00] text-white rounded-lg hover:bg-[#b94a00] transition-all">
+                  Change Profile Picture
+                </span>
+                <input type="file" id="pfp" name="pfp" accept="image/*" class="hidden" onchange="previewImage(this)" />
+              </label>
+              <p class="text-sm text-gray-600 mt-2">JPG, PNG, GIF up to 5MB</p>
+            </div>
+          </div>
+
+          <!-- Basic Information -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label for="name" class="block text-sm font-semibold text-gray-700 mb-2">Full Name *</label>
+              <input type="text" id="name" name="name" value="{{ user.name }}" required 
+                     class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#DC5F00] focus:border-[#DC5F00] outline-none transition-all" />
+            </div>
+            
+            <div>
+              <label for="email" class="block text-sm font-semibold text-gray-700 mb-2">Email *</label>
+              <input type="email" id="email" name="email" value="{{ user.email }}" required 
+                     class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#DC5F00] focus:border-[#DC5F00] outline-none transition-all" />
+            </div>
+            
+            <div>
+              <label for="phone" class="block text-sm font-semibold text-gray-700 mb-2">Phone Number</label>
+              <input type="tel" id="phone" name="phone" value="{{ user.phone }}" 
+                     class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#DC5F00] focus:border-[#DC5F00] outline-none transition-all" />
+            </div>
+            
+            <div>
+              <label for="username" class="block text-sm font-semibold text-gray-700 mb-2">Username</label>
+              <input type="text" id="username" value="{{ user.username }}" disabled 
+                     class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-100 text-gray-500 cursor-not-allowed" />
+              <p class="text-xs text-gray-500 mt-1">Username cannot be changed</p>
+            </div>
+          </div>
+
+          <!-- Description -->
+          <div>
+            <label for="description" class="block text-sm font-semibold text-gray-700 mb-2">About Me</label>
+            <textarea id="description" name="description" rows="4" 
+                      class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#DC5F00] focus:border-[#DC5F00] outline-none transition-all resize-none"
+                      placeholder="Tell us about yourself...">{{ user.description }}</textarea>
+          </div>
+
+          <!-- Role Display (Read-only) -->
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-2">Role</label>
+            <div class="px-4 py-3 border border-gray-300 rounded-lg bg-gray-100">
+              <span class="text-[#DC5F00] font-semibold">{{ user.role|title }}</span>
+            </div>
+            <p class="text-xs text-gray-500 mt-1">Role cannot be changed</p>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="flex flex-col sm:flex-row gap-4 pt-6 border-t border-gray-200">
+            <button type="submit" class="flex-1 px-6 py-3 bg-[#DC5F00] text-white rounded-lg hover:bg-[#b94a00] transition-all font-semibold">
+              Save Changes
+            </button>
+            <a href="{% url 'profile' %}" class="flex-1 px-6 py-3 border border-[#DC5F00] text-[#DC5F00] rounded-lg hover:bg-[#FFE5CC] transition-all font-semibold text-center">
+              Cancel
+            </a>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      function previewImage(input) {
+        const file = input.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function(e) {
+            const previewImage = document.getElementById('preview-image');
+            const previewPlaceholder = document.getElementById('preview-placeholder');
+            
+            if (previewImage) {
+              previewImage.src = e.target.result;
+            } else {
+              // Create new image element if it doesn't exist
+              const newImage = document.createElement('img');
+              newImage.id = 'preview-image';
+              newImage.src = e.target.result;
+              newImage.className = 'w-full h-full object-cover';
+              
+              if (previewPlaceholder) {
+                previewPlaceholder.parentNode.replaceChild(newImage, previewPlaceholder);
+              }
+            }
+          };
+          reader.readAsDataURL(file);
+        }
+      }
+    </script>
+  </body>
+</html> 

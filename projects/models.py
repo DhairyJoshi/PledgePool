@@ -8,7 +8,9 @@ def upload_cover(instance, filename):
 
 
 def upload_gallery(instance, filename):
-    return f'projects/{instance.creator.username}/{instance.slug}/gallery/{filename}'
+    campaign = instance.campaign
+    slug = getattr(campaign, 'slug', 'unsaved-campaign')
+    return f'projects/{campaign.creator.username}/{slug}/gallery/{filename}'
 
 
 class Campaign(models.Model):

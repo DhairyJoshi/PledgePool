@@ -1,0 +1,159 @@
+{% load static tailwind_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PledgePool - Profile</title>
+
+    {% tailwind_css %}
+
+    <link rel="stylesheet" href="{% static 'css/fonts.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400..900;1,400..900&family=Alumni+Sans+Pinstripe:ital@0;1&family=Amatic+SC:wght@400;700&family=Lovers+Quarrel&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&family=Raleway:ital,wght@0,100..900;1,100..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet" />
+  </head>
+
+  <body class="bg-[#FFF9F3] font-poppins min-h-screen text-[#333]">
+    {% include 'components/header_two.html' %}
+
+    <div class="w-full max-w-6xl mx-auto px-4 md:px-8 py-8">
+      <!-- Profile Header -->
+      <div class="bg-white rounded-2xl shadow-md p-8 mb-8">
+        <div class="flex flex-col md:flex-row items-center md:items-start gap-6">
+          <!-- Profile Picture -->
+          <div class="w-32 h-32 rounded-full overflow-hidden border-4 border-[#DC5F00]">
+            {% if user.pfp %}
+              <img src="{{ user.pfp.url }}" alt="Profile Picture" class="w-full h-full object-cover" />
+            {% else %}
+              <div class="w-full h-full bg-[#FFE5CC] flex items-center justify-center">
+                <span class="text-4xl text-[#DC5F00] font-bold">{{ user.name|first|upper }}</span>
+              </div>
+            {% endif %}
+          </div>
+          
+          <!-- Profile Info -->
+          <div class="flex-1 text-center md:text-left">
+            <h1 class="text-3xl font-bold text-[#DC5F00] mb-2">{{ user.name }}</h1>
+            <p class="text-lg text-gray-600 mb-4">@{{ user.username }}</p>
+            <div class="flex flex-wrap gap-4 justify-center md:justify-start mb-4">
+              <span class="px-4 py-2 bg-[#FFE5CC] text-[#DC5F00] rounded-full font-semibold">
+                {{ user.role|title }}
+              </span>
+              <span class="px-4 py-2 bg-gray-100 text-gray-600 rounded-full">
+                Member since {{ user.birthdate|date:"M Y" }}
+              </span>
+            </div>
+            <p class="text-gray-700 leading-relaxed">{{ user.description|default:"No description provided." }}</p>
+          </div>
+          
+          <!-- Action Buttons -->
+          <div class="flex flex-col gap-3">
+            <a href="{% url 'edit_profile' %}" class="px-6 py-2 bg-[#DC5F00] text-white rounded-lg hover:bg-[#b94a00] transition-all text-center">
+              Edit Profile
+            </a>
+            <a href="{% url 'settings' %}" class="px-6 py-2 border border-[#DC5F00] text-[#DC5F00] rounded-lg hover:bg-[#FFE5CC] transition-all text-center">
+              Settings
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Role-specific Content -->
+      {% if user.role == 'creator' %}
+        <!-- Creator Stats -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          <div class="bg-white rounded-2xl shadow-md p-6 text-center">
+            <h3 class="text-2xl font-bold text-[#DC5F00] mb-2">0</h3>
+            <p class="text-gray-600">Active Campaigns</p>
+          </div>
+          <div class="bg-white rounded-2xl shadow-md p-6 text-center">
+            <h3 class="text-2xl font-bold text-[#DC5F00] mb-2">₹0</h3>
+            <p class="text-gray-600">Total Raised</p>
+          </div>
+          <div class="bg-white rounded-2xl shadow-md p-6 text-center">
+            <h3 class="text-2xl font-bold text-[#DC5F00] mb-2">0</h3>
+            <p class="text-gray-600">Total Backers</p>
+          </div>
+        </div>
+        
+        <!-- Creator Actions -->
+        <div class="bg-white rounded-2xl shadow-md p-8 mb-8">
+          <h2 class="text-2xl font-bold text-[#DC5F00] mb-6">Creator Dashboard</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <a href="{% url 'create' %}" class="p-6 border-2 border-dashed border-[#DC5F00] rounded-lg text-center hover:bg-[#FFE5CC] transition-all">
+              <div class="text-4xl text-[#DC5F00] mb-2">+</div>
+              <h3 class="text-lg font-semibold text-[#DC5F00] mb-2">Create New Campaign</h3>
+              <p class="text-gray-600">Start a new crowdfunding campaign</p>
+            </a>
+            <a href="{% url 'myprojects' %}" class="p-6 border-2 border-dashed border-[#DC5F00] rounded-lg text-center hover:bg-[#FFE5CC] transition-all">
+              <div class="text-4xl text-[#DC5F00] mb-2">📊</div>
+              <h3 class="text-lg font-semibold text-[#DC5F00] mb-2">My Campaigns</h3>
+              <p class="text-gray-600">View and manage your campaigns</p>
+            </a>
+          </div>
+        </div>
+        
+      {% elif user.role == 'backer' %}
+        <!-- Backer Stats -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          <div class="bg-white rounded-2xl shadow-md p-6 text-center">
+            <h3 class="text-2xl font-bold text-[#DC5F00] mb-2">0</h3>
+            <p class="text-gray-600">Projects Backed</p>
+          </div>
+          <div class="bg-white rounded-2xl shadow-md p-6 text-center">
+            <h3 class="text-2xl font-bold text-[#DC5F00] mb-2">₹0</h3>
+            <p class="text-gray-600">Total Pledged</p>
+          </div>
+          <div class="bg-white rounded-2xl shadow-md p-6 text-center">
+            <h3 class="text-2xl font-bold text-[#DC5F00] mb-2">0</h3>
+            <p class="text-gray-600">Active Pledges</p>
+          </div>
+        </div>
+        
+        <!-- Backer Actions -->
+        <div class="bg-white rounded-2xl shadow-md p-8 mb-8">
+          <h2 class="text-2xl font-bold text-[#DC5F00] mb-6">Backer Dashboard</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <a href="{% url 'view' %}" class="p-6 border-2 border-dashed border-[#DC5F00] rounded-lg text-center hover:bg-[#FFE5CC] transition-all">
+              <div class="text-4xl text-[#DC5F00] mb-2">🔍</div>
+              <h3 class="text-lg font-semibold text-[#DC5F00] mb-2">Browse Projects</h3>
+              <p class="text-gray-600">Discover new campaigns to support</p>
+            </a>
+            <a href="#" class="p-6 border-2 border-dashed border-[#DC5F00] rounded-lg text-center hover:bg-[#FFE5CC] transition-all">
+              <div class="text-4xl text-[#DC5F00] mb-2">💼</div>
+              <h3 class="text-lg font-semibold text-[#DC5F00] mb-2">My Pledges</h3>
+              <p class="text-gray-600">Track your pledged projects</p>
+            </a>
+          </div>
+        </div>
+      {% endif %}
+
+      <!-- Contact Information -->
+      <div class="bg-white rounded-2xl shadow-md p-8">
+        <h2 class="text-2xl font-bold text-[#DC5F00] mb-6">Contact Information</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label class="block text-sm font-semibold text-gray-600 mb-2">Email</label>
+            <p class="text-gray-800">{{ user.email }}</p>
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-gray-600 mb-2">Phone</label>
+            <p class="text-gray-800">{{ user.phone }}</p>
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-gray-600 mb-2">Birthdate</label>
+            <p class="text-gray-800">{{ user.birthdate|date:"F j, Y" }}</p>
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-gray-600 mb-2">Username</label>
+            <p class="text-gray-800">@{{ user.username }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html> 

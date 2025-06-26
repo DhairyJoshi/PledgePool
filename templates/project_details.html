@@ -81,7 +81,7 @@
         document.getElementById('message-overlay').classList.add('hidden')
         document.getElementById('message-overlay').classList.remove('flex')
       }
-
+      
       function closeModal() {
         document.getElementById('modal-overlay').classList.add('hidden')
       }
@@ -92,44 +92,214 @@
       }
     </script>
 
-    <section class="py-8 bg-white md:py-16 raleway">
-      <div class="max-w-screen-xl px-4 mx-auto 2xl:px-0">
-        <div class="lg:grid lg:grid-cols-2 lg:gap-8 xl:gap-16">
-          <div class="shrink-0 max-w-md lg:max-w-lg mx-auto">
-            <img class="w-full" src="{{ project.campaign_cover.url }}" alt="" />
+    <section class="raleway">
+      <div class="w-full h-full flex flex-col gap-4 max-w-screen-xl px-4 mx-auto xl:px-36">
+        <div class="w-full flex justify-center items-center text-center">
+          <span class="text-3xl font-semibold text-[#DC5F00]">{{ project.title }}</span>
+        </div>
+
+        <div class="w-full flex flex-row justify-center items-center lg:gap-8 xl:gap-8 box-border">
+          <div class="w-[65%] flex flex-col justify-center items-center">
+            <div class="w-full mx-auto mb-6">
+              <div class="w-full bg-gray-100 rounded overflow-hidden">
+                <img id="mainImage" class="w-full h-auto object-cover transition-all duration-300" src="{{ project.campaign_cover.url }}" alt="Main Campaign Image" />
+              </div>
+            </div>
+
+            <!-- Thumbnail Gallery -->
+            <div class="flex flex-wrap justify-start items-center gap-3 max-w-3xl mx-auto">
+              <!-- Cover Image as First Thumbnail -->
+              <img src="{{ project.campaign_cover.url }}" alt="Cover Image" class="w-20 h-20 object-cover rounded cursor-pointer border-2 border-transparent hover:border-[#DC5F00] transition" onclick="changeImage('{{ project.campaign_cover.url }}')" />
+
+              <!-- Gallery Images -->
+              {% for image in project.gallery_images.all %}
+                <img src="{{ image.image.url }}" alt="Gallery Image {{ forloop.counter }}" class="w-20 h-20 object-cover rounded cursor-pointer border-2 border-transparent hover:border-[#DC5F00] transition" onclick="changeImage('{{ image.image.url }}')" />
+              {% endfor %}
+            </div>
+
+            <!-- JS for Image Swapping -->
+            <script>
+              function changeImage(url) {
+                document.getElementById('mainImage').src = url
+              }
+            </script>
+
+            <div class="w-full h-auto my-6"></div>
           </div>
 
-          <div class="mt-6 sm:mt-8 lg:mt-0">
-            <span class="text-3xl font-semibold text-[#DC5F00]">{{ project.title }}</span>
-            <div class="mt-4 sm:items-center sm:gap-4 sm:flex">
-              <p class="text-xl text-gray-900">
-                Goal, <span class="text-base">INR {{ project.funding_goal }}</span>
-              </p>
+          <div class="w-[35%] flex flex-col">
+            <Button class="w-full h-auto flex justify-center items-center gap-6 py-2 px-5 mb-6 rounded-lg shadow-md bg-[#DC5F00]">
+              <span class="text-xl text-white">Pledge now</span>
+              <svg class="w-10 h-10 stroke-white fill=[#DC5F00]" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none">
+                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                <g id="SVGRepo_iconCarrier">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 10V8a2 2 0 0 1 2-2h2m-4 4c1.333 0 4-.8 4-4m-4 4v4m18-4V8a2 2 0 0 0-2-2h-2m4 4c-1.333 0-4-.8-4-4m4 4v2M7 6h10M3 14v2a2 2 0 0 0 2 2h2m-4-4c1.333 0 4 .8 4 4m0 0h4"></path>
+                  <circle cx="12" cy="12" r="2" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></circle>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M18 15v3m0 3v-3m0 0h-3m3 0h3"></path>
+                </g>
+              </svg>
+            </Button>
+
+            <Button class="w-full h-auto flex justify-center items-center gap-6 py-2 px-5 mb-3 rounded-lg bg-white border-2 border-solid border-[#DC5F00]">
+              <span class="text-xl text-[#DC5F00] capitalize">Be Our Voice</span>
+              <svg class="w-8 h-8 fill-[#DC5F00]" viewBox="-1 0 26 26" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                <g id="SVGRepo_iconCarrier">
+                  <title>share</title> <g class="fill-[#DC5F00]" id="Page-1" stroke="none" stroke-width="1" fill-rule="evenodd" sketch:type="MSPage">
+                    <g id="Icon-Set" sketch:type="MSLayerGroup" transform="translate(-312.000000, -726.000000)">
+                      <path d="M331,750 C329.343,750 328,748.657 328,747 C328,745.343 329.343,744 331,744 C332.657,744 334,745.343 334,747 C334,748.657 332.657,750 331,750 L331,750 Z M317,742 C315.343,742 314,740.657 314,739 C314,737.344 315.343,736 317,736 C318.657,736 320,737.344 320,739 C320,740.657 318.657,742 317,742 L317,742 Z M331,728 C332.657,728 334,729.343 334,731 C334,732.657 332.657,734 331,734 C329.343,734 328,732.657 328,731 C328,729.343 329.343,728 331,728 L331,728 Z M331,742 C329.23,742 327.685,742.925 326.796,744.312 L321.441,741.252 C321.787,740.572 322,739.814 322,739 C322,738.497 321.903,738.021 321.765,737.563 L327.336,734.38 C328.249,735.37 329.547,736 331,736 C333.762,736 336,733.762 336,731 C336,728.238 333.762,726 331,726 C328.238,726 326,728.238 326,731 C326,731.503 326.097,731.979 326.235,732.438 L320.664,735.62 C319.751,734.631 318.453,734 317,734 C314.238,734 312,736.238 312,739 C312,741.762 314.238,744 317,744 C318.14,744 319.179,743.604 320.02,742.962 L320,743 L326.055,746.46 C326.035,746.64 326,746.814 326,747 C326,749.762 328.238,752 331,752 C333.762,752 336,749.762 336,747 C336,744.238 333.762,742 331,742 L331,742 Z" id="share" sketch:type="MSShapeGroup"></path>
+                    </g>
+                  </g>
+                </g>
+              </svg>
+            </Button>
+            <span class="italic text-center mb-8">Every Social Media Share is valuable</span>
+
+            <div class="w-full h-auto flex flex-col gap-4 mb-8">
+              <span class="text-5xl">&#8377; {{ project.achieved_funding }}</span>
+              <span>raised of <span class="text-2xl">&#8377; {{ project.funding_goal }}</span></span>
+              <div class="w-full mx-auto bg-[#dc5f004d] rounded-full h-2">
+                <div class="bg-[#DC5F00] h-2 rounded-full" style="width: {{ project.campaign_progress }};"></div>
+              </div>
+              <div class="flex justify-between items-center">
+                <span class="text-xl"><span class="text-4xl">{{ project.total_pledges }}</span> Pledges</span>
+                <span class="text-xl"><span class="text-4xl">{{ project.days_left }}</span> Days Left</span>
+              </div>
             </div>
-            <div class="mt-4 sm:items-center sm:gap-4 sm:flex">
-              <p class="text-xl text-gray-900">
-                Created By, <span class="text-base">{{ project.creator }}</span>
-              </p>
+
+            <div class="w-full h-auto rounded-md border-2 border-solid border-gray-400 px-6 py-4">
+              <div class="flex justify-between items-center mb-4">
+                <div class="w-16 h-16 flex justify-center items-center">
+                  <img class="w-full h-full object-cover" src="{{ project.creator.pfp.url }}" alt="Creator Profile Picture" />
+                </div>
+
+                <div class="flex flex-col justify-center items-start">
+                  <span>Creator</span>
+                  <span class="text-[#DC5F00]">{{ project.creator.name }}</span>
+                  With Us Since 2022
+                </div>
+              </div>
+
+              <div class="flex flex-col justify-center items-center px-4 gap-4">
+                <span class="w-full h-auto text-center border-2 border-solid border-[#DC5F00] px-4 py-2 rounded-lg text-[#DC5F00]">{{ project.category }}</span>
+              </div>
             </div>
-            <div class="w-fit px-3 py-2 my-2 border-2 text-gray-600 border-gray-400 rounded-lg raleway">{{ project.category }}</div>
-
-            <hr class="my-6 md:my-8 border-gray-800" />
-
-            <p class="mb-4 text-gray-500 text-2xl">Project Details:</p>
-            <p class="mb-4 text-gray-500">{{ project.description }}</p>
-            <p class="mb-4 text-gray-500">{{ project.detailed_description }}</p>
-            <p class="mb-4 text-gray-500">{{ project.problem_statement }}</p>
-            <p class="mb-4 text-gray-500">{{ project.funds_use }}</p>
-
-            <hr class="my-6 md:my-8 border-gray-800" />
-
-            <p class="mb-4 text-gray-500 text-2xl">Reward Details:</p>
-            <p class="mb-4 text-gray-500">{{ project.reward_title }}</p>
-            <p class="mb-4 text-gray-500">{{ project.reward_description }}</p>
-            <p class="mb-4 text-gray-500">Expected Delivery: {{ project.delivery }}</p>
-
-            <button type="button" onclick="openMessage()" class="w-full mt-4 px-4 py-3 text-xl bg-[#DC5F00] text-white rounded-md hover:bg-[#c84100] transition">Pledge</button>
           </div>
+        </div>
+        
+        <div class="flex flex-col justify-center items-center my-6">
+          <!-- Tab Headers -->
+          <div class="w-full h-auto flex justify-evenly text-center mb-2">
+            <button onclick="showTab('about')" class="tab-btn w-full py-3 text-lg font-medium text-white bg-[#DC5F00] active-tab border-b-2 border-solid border-[#DC5F00] rounded-tl-lg rounded-tr-lg" id="tab-about">About</button>
+            <button onclick="showTab('details')" class="tab-btn w-full py-3 text-lg font-medium text-[#DC5F00] border-b-2 border-solid border-[#DC5F00] rounded-tl-lg rounded-tr-lg" id="tab-details">Details</button>
+            <button onclick="showTab('rewards')" class="tab-btn w-full py-3 text-lg font-medium text-[#DC5F00] border-b-2 border-solid border-[#DC5F00] rounded-tl-lg rounded-tr-lg" id="tab-rewards">Rewards</button>
+            <button onclick="showTab('terms')" class="tab-btn w-full py-3 text-lg font-medium text-[#DC5F00] border-b-2 border-solid border-[#DC5F00] rounded-tl-lg rounded-tr-lg" id="tab-terms">T & C</button>
+            <button onclick="showTab('comments')" class="tab-btn w-full py-3 text-lg font-medium text-[#DC5F00] border-b-2 border-solid border-[#DC5F00] rounded-tl-lg rounded-tr-lg" id="tab-comments">Comments</button>
+          </div>
+          <!-- Tab Content -->
+          <div id="tab-content" class="w-full h-auto mt-8 p-4 bg-white shadow-2xl mb-6">
+            <!-- About Section -->
+            <div id="about" class="tab-section flex flex-col justify-start items-start gap-6">
+              <div class="flex justify-start items-start gap-2">
+                <span>Description:</span>
+                <span>{{ project.description }}</span>
+              </div>
+  
+              <div class="flex justify-start items-start gap-2">
+                <span>Start Date:</span>
+                <span>{{ project.start_date }}</span>
+              </div>
+  
+              <div class="flex justify-start items-start gap-2">
+                <span>End Date:</span>
+                <span>{{ project.end_date }}</span>
+              </div>
+  
+              <div class="flex justify-start items-start gap-2">
+                <span>Problem Statement:</span>
+                <span>{{ project.problem_statement }}</span>
+              </div>
+            </div>
+  
+            <div id="details" class="tab-section hidden flex-col justify-start items-start gap-6">
+              <div class="flex justify-start items-start gap-2">
+                <span>Detailed Description:</span>
+                <span>{{ project.detailed_description }}</span>
+              </div>
+  
+              <div class="flex justify-start items-start gap-2">
+                <span>Funds Use:</span>
+                <span>{{ project.detailed_description }}</span>
+              </div>
+  
+              <div class="flex justify-start items-start gap-2">
+                <span>Video Url:</span>
+                <span>{{ project.video_url }}</span>
+              </div>
+            </div>
+  
+            <!-- Rewards Section -->
+            <div id="rewards" class="tab-section hidden flex-col justify-start items-start gap-6">
+              <div class="flex justify-start items-start gap-2">
+                <span>Reward Title:</span>
+                <span>{{ project.reward_title }}</span>
+              </div>
+              <div class="flex justify-start items-start gap-2">
+                <span>Description:</span>
+                <span>{{ project.reward_description }}</span>
+              </div>
+              <div class="flex justify-start items-start gap-2">
+                <span>Delivery Date:</span>
+                <span>{{ project.delivery }}</span>
+              </div>
+            </div>
+  
+            <!-- Terms Section -->
+            <div id="terms" class="tab-section hidden">
+              <div class="flex justify-start items-start gap-2">
+                <span>Terms & Conditions:</span>
+                <span>{{ project.agreements }}</span>
+              </div>
+            </div>
+
+            <div id="comments" class="tab-section hidden">
+              <div class="flex justify-start items-start gap-2">
+                <span>Terms & Conditions:</span>
+                <span>{{ project.agreements }}</span>
+              </div>
+            </div>
+          </div>
+          <script>
+            function showTab(tabId) {
+              // Hide all sections
+              document.querySelectorAll('.tab-section').forEach((section) => {
+                section.classList.add('hidden')
+                section.classList.remove('flex')
+              })
+            
+              // Show the selected section
+              document.getElementById(tabId).classList.remove('hidden')
+              document.getElementById(tabId).classList.add('flex')
+            
+              // Reset all tab styles
+              document.querySelectorAll('.tab-btn').forEach((tab) => {
+                tab.classList.remove('bg-[#DC5F00]', 'text-white')
+                tab.classList.add('text-[#DC5F00]', 'border-b-2')
+              })
+            
+              // Highlight the active tab
+              const activeTab = document.getElementById(`tab-${tabId}`)
+              activeTab.classList.add('bg-[#DC5F00]', 'text-white')
+              activeTab.classList.remove('border-b-2')
+            }
+            
+            // Set default tab on page load
+            document.addEventListener('DOMContentLoaded', function () {
+              showTab('about')
+            })
+          </script>
         </div>
       </div>
     </section>

@@ -3,12 +3,53 @@ from accounts.models import pledgepool_user
 from projects.models import Campaign, Pledge
 from django.utils import timezone
 from django.contrib import messages
-from django.db.models import F
 from decimal import Decimal
+from projects.models import CampaignGalleryImage
 
 def viewprojects(request):
-    # Get all projects for this creator
+    # Fixed categories for navbar
+    CATEGORY_LIST = [
+        'Art & Design', 'Film & Video', 'Games', 'Social Causes', 'Education',
+        'Health & Wellness', 'Technology', 'Startups', 'Animals & Pets'
+    ]
+
+    # Count projects per category
+    from django.db.models import Count
+    category_counts = {}
+    for cat in CATEGORY_LIST:
+        if cat == 'Film & Video':
+            # Combine Film & Video and Music counts
+            film_video_count = Campaign.objects.filter(category__iexact='Film & Video').count()
+            music_count = Campaign.objects.filter(category__iexact='Music').count()
+            category_counts[cat] = film_video_count + music_count
+        else:
+            category_counts[cat] = Campaign.objects.filter(category__iexact=cat).count()
+    total_count = Campaign.objects.all().count()
+
+    # Filtering
+    selected_category = request.GET.get('category')
+    search_query = request.GET.get('search')
+    sort_by = request.GET.get('sort', 'trending')
+
     projects = Campaign.objects.all()
+    if selected_category and selected_category != 'All':
+        if selected_category == 'Film & Video':
+            # Combine Film & Video and Music categories
+            projects = projects.filter(category__iexact__in=['Film & Video', 'Music'])
+        else:
+            projects = projects.filter(category__iexact=selected_category)
+    if search_query:
+        projects = projects.filter(title__icontains=search_query)
+
+    # Sorting
+    if sort_by == 'newest':
+        projects = projects.order_by('-start_date')
+    elif sort_by == 'ending':
+        projects = projects.order_by('end_date')
+    elif sort_by == 'funded':
+        projects = projects.order_by('-achieved_funding')
+    else:  # trending (default)
+        projects = projects.order_by('-total_pledges', '-achieved_funding')
 
     today = timezone.now().date()
 
@@ -31,7 +72,13 @@ def viewprojects(request):
             project.campaign_progress = "0%"
 
     return render(request, 'viewprojects.html', {
-        'projects': projects
+        'projects': projects,
+        'categories': CATEGORY_LIST,
+        'category_counts': category_counts,
+        'total_count': total_count,
+        'selected_category': selected_category,
+        'search_query': search_query,
+        'sort_by': sort_by,
     })
 
 
@@ -68,7 +115,7 @@ def createproject(request):
 
         # file uploads
         campaign_cover = request.FILES.get('campaign_cover')
-        campaign_gallery = request.FILES.get('campaign_gallery')
+        campaign_gallery_files = request.FILES.getlist('campaign_gallery')
 
         try:
             # Create and save the campaign instance
@@ -92,13 +139,13 @@ def createproject(request):
                 delivery=delivery,
                 agreements=agreements,
             )
+            campaign_instance.save()
 
             # If there's a gallery image, associate it with the campaign
-            if campaign_gallery:
-                from projects.models import CampaignGalleryImage
+            for image_file in campaign_gallery_files:
                 CampaignGalleryImage.objects.create(
                     campaign=campaign_instance,
-                    image=campaign_gallery
+                    image=image_file
                 )
 
             messages.success(request, f"Campaign '{title}' created successfully!")
@@ -143,7 +190,6 @@ def projectdetails(request, project_id):
                 messages.error(request, "Pledge amount must be greater than zero.")
                 return redirect('projectdetails', project_id=project.id)
 
-            # ✅ Create pledge record
             Pledge.objects.create(
                 project=project,
                 backer=backer,
@@ -151,7 +197,6 @@ def projectdetails(request, project_id):
                 amount=amount
             )
 
-            # ✅ Update the Campaign object directly
             project.achieved_funding += amount
             project.total_pledges += 1
             project.save()
