@@ -5,7 +5,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PledgePool - Projects</title>
+    <title>PledgePool - My Projects</title>
 
     {% tailwind_css %}
 
@@ -17,23 +17,239 @@
     <link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400..900;1,400..900&family=Alumni+Sans+Pinstripe:ital@0;1&family=Amatic+SC:wght@400;700&family=Lovers+Quarrel&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&family=Raleway:ital,wght@0,100..900;1,100..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet" />
   </head>
 
-  <body>
+  <body class="bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 min-h-screen">
     {% include 'components/header_two.html' %}
+    
+    <!-- Hero Section with Animated Background -->
+    <div class="relative overflow-hidden">
+        <!-- Animated Background Elements -->
+        <div class="absolute inset-0">
+            <div class="absolute top-20 left-10 w-72 h-72 bg-gradient-to-r from-blue-400/20 to-purple-400/20 rounded-full blur-3xl animate-pulse"></div>
+            <div class="absolute top-40 right-20 w-96 h-96 bg-gradient-to-r from-orange-400/20 to-red-400/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
+            <div class="absolute bottom-20 left-1/3 w-80 h-80 bg-gradient-to-r from-green-400/20 to-blue-400/20 rounded-full blur-3xl animate-pulse delay-2000"></div>
+        </div>
+        
+        <!-- Header Section -->
+        <div class="relative bg-white/80 backdrop-blur-sm shadow-lg border-b border-white/20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
+                    <div class="flex-1 mb-8 lg:mb-0">
+                        <div class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-100 to-purple-100 rounded-full text-sm font-medium text-blue-700 mb-4">
+                            <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            Creator Dashboard
+                        </div>
+                        <h1 class="text-4xl lg:text-5xl font-bold text-gray-900 mb-4 leading-tight">
+                            <span class="bg-gradient-to-r from-blue-600 via-purple-600 to-orange-600 bg-clip-text text-transparent">
+                                My Projects
+                            </span>
+                        </h1>
+                        <p class="text-gray-600 text-lg lg:text-xl max-w-2xl leading-relaxed">
+                            Manage and track all your campaigns. Monitor performance, update details, and engage with your backers.
+                        </p>
+                    </div>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <div class="group bg-gradient-to-br from-green-500 to-emerald-600 text-white px-8 py-6 rounded-2xl shadow-xl transform hover:scale-105 transition-all duration-300">
+                            <div class="flex items-center justify-between mb-2">
+                                <div class="text-sm font-medium opacity-90">Total Raised</div>
+                                <svg class="w-5 h-5 opacity-70 group-hover:opacity-100 transition-opacity" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M8.433 7.418c.155-.103.346-.196.567-.267v1.698a2.305 2.305 0 01-.567-.267C8.07 8.34 8 8.114 8 8c0-.114.07-.34.433-.582zM11 12.849v-1.698c.22.071.412.164.567.267.364.243.433.468.433.582 0 .114-.07.34-.433.582a2.305 2.305 0 01-.567.267z"></path>
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v.092a4.535 4.535 0 00-1.676.662C6.602 6.234 6 7.009 6 8c0 .99.602 1.765 1.324 2.246.48.32 1.054.545 1.676.662v1.941c-.391-.127-.68-.317-.843-.504a1 1 0 10-1.51 1.31c.562.649 1.413 1.076 2.353 1.253V15a1 1 0 102 0v-.092a4.535 4.535 0 001.676-.662C13.398 13.766 14 12.991 14 12c0-.99-.602-1.765-1.324-2.246A4.535 4.535 0 0011 9.092V7.151c.391.127.68.317.843.504a1 1 0 101.511-1.31c-.563-.649-1.413-1.076-2.354-1.253V5z" clip-rule="evenodd"></path>
+                                </svg>
+                            </div>
+                            <div class="text-3xl font-bold">₹{{ total_raised|default:0|floatformat:0 }}</div>
+                        </div>
+                        <div class="group bg-gradient-to-br from-blue-500 to-indigo-600 text-white px-8 py-6 rounded-2xl shadow-xl transform hover:scale-105 transition-all duration-300">
+                            <div class="flex items-center justify-between mb-2">
+                                <div class="text-sm font-medium opacity-90">Active Projects</div>
+                                <svg class="w-5 h-5 opacity-70 group-hover:opacity-100 transition-opacity" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"></path>
+                                </svg>
+                            </div>
+                            <div class="text-3xl font-bold">{{ active_projects_count|default:0 }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <!-- Projects Section -->
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            {% if projects %}
+                <!-- Projects Grid -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
+                    {% for project in projects %}
+                    <div class="group bg-white/90 backdrop-blur-sm rounded-3xl shadow-lg border border-white/20 overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 hover:scale-[1.02]">
+                        <!-- Project Image -->
+                        <div class="relative h-56 bg-gradient-to-br from-blue-100 to-purple-100 overflow-hidden">
+                            {% if project.campaign_cover %}
+                                <img src="{{ project.campaign_cover.url }}" alt="{{ project.title }}" 
+                                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            {% else %}
+                                <div class="w-full h-full flex items-center justify-center">
+                                    <svg class="w-20 h-20 text-gray-400 group-hover:text-orange-500 transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                    </svg>
+                                </div>
+                            {% endif %}
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                            <div class="absolute top-4 left-4">
+                                <span class="bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
+                                    {{ project.category }}
+                                </span>
+                            </div>
+                            <div class="absolute top-4 right-4">
+                                <div class="w-3 h-3 rounded-full {% if project.end_date > today %}bg-green-500 animate-pulse{% else %}bg-red-500{% endif %} shadow-lg"></div>
+                            </div>
+                        </div>
 
-    <section class="text-gray-600 raleway">
-      <span class="mx-10 text-4xl text-[#DC5F00]">My Projects</span>
-      <div class="flex flex-wrap justify-start items-center gap-10 mx-10">
-        {% if projects %}
-          {% for project in projects %}
-            {% include 'components/project_two.html' with image_loc=project.campaign_cover.url title=project description=project.description achieved_amount=project.achieved_funding total_amount=project.funding_goal remaining_amount=project.remaining_amount progress=project.campaign_progress days_left=project.days_left no_of_pledges=project.total_pledges %}
-          {% endfor %}
-        {% else %}
-          <div class="w-full h-[70vh] flex flex-col justify-center items-center gap-4 my-4">
-            <span class="text-xl">You haven't created any projects yet</span>
-            <a href="../projects/create" class="w-fit relative inline-block px-4 lg:px-8 py-2 lg:py-4 text-white cursor-pointer overflow-hidden border-2 border-solid border-[#DC5F00] bg-[#DC5F00] transition-colors duration-500 z-[1] rounded-lg raleway text-xl before:content-[''] before:absolute before:top-full before:left-full before:z-[-1] before:bg-white before:h-[18.75rem] before:w-[25rem] before:rounded-[50%] before:transition-all before:duration-700 hover:text-[#DC5F00] hover:before:top-[-3.75rem] hover:before:left-[-3.75rem] active:before:bg-white active:before:transition-all active:before:duration-0">Create campaign</a>
-          </div>
-        {% endif %}
-      </div>
-    </section>
-  </body>
+                        <!-- Project Content -->
+                        <div class="p-8">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-3 line-clamp-2 group-hover:text-orange-600 transition-colors duration-300">
+                                <a href="{% url 'projectdetails' project.id %}" class="hover:text-orange-600 transition-colors duration-200">
+                                    {{ project.title }}
+                                </a>
+                            </h3>
+                            
+                            <p class="text-gray-600 text-sm mb-6 line-clamp-3 leading-relaxed">
+                                {{ project.description|truncatewords:25 }}
+                            </p>
+
+                            <!-- Funding Progress -->
+                            <div class="mb-6">
+                                <div class="flex justify-between text-sm text-gray-600 mb-2">
+                                    <span class="font-medium">Funding Progress</span>
+                                    <span class="font-semibold">{{ project.achieved_funding|floatformat:0 }} / {{ project.funding_goal|floatformat:0 }}</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
+                                    <div class="bg-gradient-to-r from-orange-500 to-red-500 h-3 rounded-full transition-all duration-1000 ease-out"
+                                        style="width: {{ project.campaign_progress }}%"></div>
+                                </div>
+                                <div class="text-xs text-gray-500 mt-2 font-medium">
+                                    {{ project.campaign_progress }}% funded
+                                </div>
+                            </div>
+
+                            <!-- Project Stats -->
+                            <div class="grid grid-cols-3 gap-4 mb-6">
+                                <div class="text-center">
+                                    <div class="text-2xl font-bold text-gray-900">{{ project.total_pledges }}</div>
+                                    <div class="text-xs text-gray-500">Pledges</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-2xl font-bold text-gray-900">{{ project.days_left }}</div>
+                                    <div class="text-xs text-gray-500">Days Left</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-2xl font-bold text-gray-900">₹{{ project.achieved_funding|floatformat:0 }}</div>
+                                    <div class="text-xs text-gray-500">Raised</div>
+                                </div>
+                            </div>
+
+                            <!-- Action Buttons -->
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-3">
+                                    <div class="flex items-center space-x-2">
+                                        <div class="w-2 h-2 rounded-full {% if project.end_date > today %}bg-green-500 animate-pulse{% else %}bg-red-500{% endif %}"></div>
+                                        <span class="text-sm font-medium text-gray-600">
+                                            {% if project.end_date > today %}
+                                                Active Campaign
+                                            {% else %}
+                                                Campaign Ended
+                                            {% endif %}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="flex space-x-2">
+                                    <a href="{% url 'edit_project' project.id %}" 
+                                    class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-500 to-indigo-600 text-white text-sm font-semibold rounded-xl hover:from-blue-600 hover:to-indigo-700 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl">
+                                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                                        </svg>
+                                        Edit
+                                    </a>
+                                    <button onclick="confirmDelete({{ project.id }}, '{{ project.title }}')" 
+                                    class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-red-500 to-red-600 text-white text-sm font-semibold rounded-xl hover:from-red-600 hover:to-red-700 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl">
+                                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                        </svg>
+                                        Delete
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <!-- Empty State -->
+                <div class="text-center py-20">
+                    <div class="mx-auto w-32 h-32 bg-gradient-to-br from-orange-100 to-red-100 rounded-full flex items-center justify-center mb-8 shadow-lg">
+                        <svg class="w-16 h-16 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-3xl font-bold text-gray-900 mb-4">No projects yet</h3>
+                    <p class="text-gray-600 mb-8 max-w-md mx-auto text-lg leading-relaxed">
+                        You haven't created any campaigns yet. Start your journey by creating your first project and bringing your ideas to life!
+                    </p>
+                    <a href="../projects/create" 
+                    class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-orange-500 to-red-500 text-white font-semibold rounded-2xl hover:from-orange-600 hover:to-red-600 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl">
+                        <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                        </svg>
+                        Create Your First Campaign
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- CSRF Token for AJAX requests -->
+    {% csrf_token %}
+
+    <style>
+        .line-clamp-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .line-clamp-3 {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+    </style>
+
+    <script>
+        function confirmDelete(projectId, projectTitle) {
+            if (confirm(`Are you sure you want to delete "${projectTitle}"? This action cannot be undone.`)) {
+                fetch(`/creator/delete-project/${projectId}/`, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+                        'Content-Type': 'application/json',
+                    },
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert(data.message);
+                        location.reload();
+                    } else {
+                        alert('Error: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while deleting the project.');
+                });
+            }
+        }
+    </script>
+</body>
 </html>

@@ -3,6 +3,8 @@ from django.contrib import messages
 from .models import pledgepool_user
 from django.db import IntegrityError
 from django.utils import timezone
+from projects.models import Pledge, Campaign
+from django.db.models import Sum, Count
 
 # Create your views here.
 
@@ -170,4 +172,71 @@ def settings(request):
     
     return render(request, 'settings.html', {
         'user': user
+    })
+
+def my_pledges(request):
+    if not request.session.get('user_id'):
+        return redirect('login')
+    
+    try:
+        user = pledgepool_user.objects.get(id=request.session.get('user_id'))
+    except pledgepool_user.DoesNotExist:
+        return redirect('login')
+    
+    # Get all pledges made by the user
+    pledges = Pledge.objects.filter(backer=user).select_related('project', 'creator')
+    
+    # Get search query
+    search_query = request.GET.get('search', '')
+    if search_query:
+        pledges = pledges.filter(project__title__icontains=search_query)
+    
+    # Get sort parameter
+    sort_by = request.GET.get('sort', 'date_pledged')
+    if sort_by == 'amount':
+        pledges = pledges.order_by('-amount')
+    elif sort_by == 'project_title':
+        pledges = pledges.order_by('project__title')
+    elif sort_by == 'date_pledged':
+        pledges = pledges.order_by('-date_pledged')
+    else:
+        pledges = pledges.order_by('-date_pledged')
+    
+    # Calculate total pledged amount
+    total_pledged = pledges.aggregate(total=Sum('amount'))['total'] or 0
+    
+    # Get unique campaigns count
+    campaigns_count = pledges.values('project').distinct().count()
+    
+    # Group pledges by campaign for better display
+    campaign_pledges = {}
+    for pledge in pledges:
+        campaign = pledge.project
+        if campaign.id not in campaign_pledges:
+            campaign_pledges[campaign.id] = {
+                'campaign': campaign,
+                'pledges': [],
+                'total_pledged': 0,
+                'pledge_count': 0
+            }
+        campaign_pledges[campaign.id]['pledges'].append(pledge)
+        campaign_pledges[campaign.id]['total_pledged'] += pledge.amount
+        campaign_pledges[campaign.id]['pledge_count'] += 1
+    
+    # Convert to list and sort
+    campaign_pledges_list = list(campaign_pledges.values())
+    if sort_by == 'amount':
+        campaign_pledges_list.sort(key=lambda x: x['total_pledged'], reverse=True)
+    elif sort_by == 'project_title':
+        campaign_pledges_list.sort(key=lambda x: x['campaign'].title)
+    elif sort_by == 'date_pledged':
+        campaign_pledges_list.sort(key=lambda x: max(p.date_pledged for p in x['pledges']), reverse=True)
+    
+    return render(request, 'my_pledges.html', {
+        'user': user,
+        'campaign_pledges': campaign_pledges_list,
+        'total_pledged': total_pledged,
+        'campaigns_count': campaigns_count,
+        'search_query': search_query,
+        'sort_by': sort_by
     })

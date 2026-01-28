@@ -1,4 +1,5 @@
 {% load static tailwind_tags %}
+{% load custom_filters %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -22,35 +23,47 @@
 
     {% for message in messages %}
       {% if message.tags == 'success' %}
-        <div id="modal-overlay" class="w-screen h-screen fixed flex justify-center items-center inset-0 bg-gray-500 bg-opacity-50 z-[50]">
-          <div class="w-96 h-fit absolute raleway bg-white rounded-[10px] border-2 border-solid border-[#DC5F00] flex flex-col items-start justify-between p-[20px] gap-[15px] cookies-card z-[100]">
-            <p class="text-xl font-bold text-[#DC5F00]">Pledge Successful</p>
-            <p class="text-base">{{ message }}</p>
-            <div class="w-full h-auto flex items-center justify-between gap-[20px]">
-              <a href="../../../backer/dashboard" onclick="closeModal()" class="w-[50%] px-0 py-2 bg-[#DC5F00] text-white border-none text-center rounded-md cursor-pointer hover:bg-[#c84100] transition-all duration-300 ease-in-out">Go To Dashboard</a>
-              <a href="../../../projects/view" onclick="closeModal()" class="w-[50%] px-0 py-2 bg-gray-200 text-black border-none text-center rounded-md cursor-pointer hover:bg-gray-300 transition-all duration-300 ease-in-out">View Projects</a>
+        <div id="modal-overlay" class="w-screen h-screen fixed flex justify-center items-center inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-[50]">
+          <div class="w-96 h-fit absolute raleway bg-white rounded-2xl shadow-2xl border border-gray-200 flex flex-col items-start justify-between p-8 gap-6 cookies-card z-[100] transform transition-all duration-300 scale-100">
+            <div class="w-full text-center">
+              <div class="w-16 h-16 bg-[#FFE5CC] rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg class="w-8 h-8 text-[#DC5F00]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+              </div>
+              <h3 class="text-2xl font-bold text-gray-900 mb-2">Pledge Successful!</h3>
+              <p class="text-gray-600">{{ message }}</p>
             </div>
-            <button onclick="closeModal()" class="w-[18px] h-[18px] flex items-center justify-center bg-transparent border-none rounded-md cursor-pointer absolute top-6 right-4">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 162 162" class="svgIconCross">
-                <path stroke-linecap="round" stroke-width="15" stroke="#DC5F00" d="M9.01074 8.98926L153.021 153"></path>
-                <path stroke-linecap="round" stroke-width="15" stroke="#DC5F00" d="M9.01074 153L153.021 8.98926"></path>
+            <div class="w-full flex items-center justify-between gap-4">
+              <a href="../../../backer/dashboard" onclick="closeModal()" class="flex-1 px-6 py-3 bg-gradient-to-r from-[#DC5F00] to-[#c84100] text-white text-center rounded-xl font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-300">Go To Dashboard</a>
+              <a href="../../../projects/view" onclick="closeModal()" class="flex-1 px-6 py-3 bg-gray-100 text-gray-700 text-center rounded-xl font-semibold hover:bg-gray-200 transition-all duration-300">View Projects</a>
+            </div>
+            <button onclick="closeModal()" class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-gray-100 hover:bg-gray-200 rounded-full transition-all duration-300">
+              <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
               </svg>
             </button>
           </div>
         </div>
       {% elif message.tags == 'error' %}
-        <div id="modal-overlay" class="w-screen h-screen fixed flex justify-center items-center inset-0 bg-gray-500 bg-opacity-50 z-[50]">
-          <div class="w-96 h-fit absolute raleway bg-white rounded-[10px] border-2 border-solid border-[#DC5F00] flex flex-col items-start justify-between p-[20px] gap-[15px] cookies-card z-[100]">
-            <p class="text-xl font-bold text-[#DC5F00]">Unknown Error</p>
-            <p class="text-base">{{ message }}</p>
-            <div class="w-full h-auto flex items-center justify-between gap-[20px]">
-              <a href="../../../backer/dashboard" onclick="closeModal()" class="w-[50%] px-0 py-2 bg-[#DC5F00] text-white border-none text-center rounded-md cursor-pointer hover:bg-[#c84100] transition-all duration-300 ease-in-out">Go To Dashboard</a>
-              <a href="../../../projects/view" onclick="closeModal()" class="w-[50%] px-0 py-2 bg-gray-200 text-black border-none text-center rounded-md cursor-pointer hover:bg-gray-300 transition-all duration-300 ease-in-out">View Projects</a>
+        <div id="modal-overlay" class="w-screen h-screen fixed flex justify-center items-center inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-[50]">
+          <div class="w-96 h-fit absolute raleway bg-white rounded-2xl shadow-2xl border border-gray-200 flex flex-col items-start justify-between p-8 gap-6 cookies-card z-[100] transform transition-all duration-300 scale-100">
+            <div class="w-full text-center">
+              <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg class="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+              </div>
+              <h3 class="text-2xl font-bold text-gray-900 mb-2">Error</h3>
+              <p class="text-gray-600">{{ message }}</p>
             </div>
-            <button onclick="closeModal()" class="w-[18px] h-[18px] flex items-center justify-center bg-transparent border-none rounded-md cursor-pointer absolute top-6 right-4">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 162 162" class="svgIconCross">
-                <path stroke-linecap="round" stroke-width="15" stroke="#DC5F00" d="M9.01074 8.98926L153.021 153"></path>
-                <path stroke-linecap="round" stroke-width="15" stroke="#DC5F00" d="M9.01074 153L153.021 8.98926"></path>
+            <div class="w-full flex items-center justify-between gap-4">
+              <a href="../../../backer/dashboard" onclick="closeModal()" class="flex-1 px-6 py-3 bg-gradient-to-r from-[#DC5F00] to-[#c84100] text-white text-center rounded-xl font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-300">Go To Dashboard</a>
+              <a href="../../../projects/view" onclick="closeModal()" class="flex-1 px-6 py-3 bg-gray-100 text-gray-700 text-center rounded-xl font-semibold hover:bg-gray-200 transition-all duration-300">View Projects</a>
+            </div>
+            <button onclick="closeModal()" class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center bg-gray-100 hover:bg-gray-200 rounded-full transition-all duration-300">
+              <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
               </svg>
             </button>
           </div>
@@ -58,62 +71,177 @@
       {% endif %}
     {% endfor %}
 
-    <div id="message-overlay" class="hidden w-screen h-screen fixed justify-center items-center inset-0 bg-gray-500 bg-opacity-50 z-[50]">
-      <div class="w-[25rem] h-fit absolute raleway bg-white rounded-[10px] border-2 border-solid border-[#DC5F00] flex flex-col items-start justify-between p-[20px] gap-[15px] cookies-card z-[100]">
-        <form class="w-full mx-auto" method="POST" enctype="multipart/form-data">
-          {% csrf_token %}
-
-          <div class="mb-5">
-            <label for="amount" class="block mb-2 text-sm font-medium text-gray-900">Enter amount to pledge</label>
-            <input type="number" id="amount" name="amount" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#DC5F00] focus:border-[#DC5F00] block w-full p-2.5" placeholder="Enter Amount" style="-moz-appearance: textfield;" onwheel="this.blur()" min="0" required />
+    <!-- Pledge Modal -->
+    <div id="pledge-modal" class="hidden w-screen h-screen fixed justify-center items-center inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-[50]">
+      <div class="w-full max-w-md mx-4 bg-white rounded-2xl shadow-2xl border border-gray-200 transform transition-all duration-300 scale-95" id="modal-content">
+        <div class="p-8">
+          <div class="flex items-center justify-between mb-6">
+            <h3 class="text-2xl font-bold text-gray-900">Make a Pledge</h3>
+            <button onclick="closePledgeModal()" class="w-8 h-8 flex items-center justify-center bg-gray-100 hover:bg-gray-200 rounded-full transition-all duration-300">
+              <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+              </svg>
+            </button>
           </div>
-          <div class="w-full flex justify-end gap-4 px-4 items-center">
-            <button type="submit" class="text-white focus:ring-4 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center bg-[#DC5F00] hover:bg-[#c84100]">Pledge</button>
-
-            <button type="button" onclick="closeMessage()" class="text-white focus:ring-4 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center bg-gray-400 hover:bg-gray-500">Close</button>
+          
+          <div class="mb-6">
+            <div class="bg-gradient-to-r from-[#FFE5CC] to-[#FFF3E0] rounded-xl p-4 mb-4">
+              <h4 class="font-semibold text-gray-900 mb-2">{{ project.title }}</h4>
+              <div class="flex items-center justify-between text-sm text-gray-600">
+                <span>Goal: ₹{{ project.funding_goal }}</span>
+                <span>Raised: ₹{{ project.achieved_funding }}</span>
+              </div>
+              <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
+                <div class="bg-gradient-to-r from-[#DC5F00] to-[#c84100] h-2 rounded-full transition-all duration-500" style="width: {{ project.campaign_progress }}%"></div>
+              </div>
+            </div>
           </div>
-        </form>
+
+          <form class="w-full" method="POST" enctype="multipart/form-data" id="pledge-form">
+            {% csrf_token %}
+            <div class="mb-6">
+              <label for="amount" class="block mb-3 text-sm font-semibold text-gray-700">Pledge Amount (₹)</label>
+              <div class="relative">
+                <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 font-semibold">₹</span>
+                <input 
+                  type="number" 
+                  id="amount" 
+                  name="amount" 
+                  class="w-full pl-8 pr-4 py-4 bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-xl focus:ring-2 focus:ring-[#DC5F00] focus:border-[#DC5F00] transition-all duration-300" 
+                  placeholder="Enter amount" 
+                  style="-moz-appearance: textfield;" 
+                  onwheel="this.blur()" 
+                  min="1" 
+                  step="0.01"
+                  required 
+                />
+              </div>
+              <div class="flex flex-wrap gap-2 mt-3">
+                <button type="button" onclick="setAmount(100)" class="px-4 py-2 bg-gray-100 hover:bg-[#DC5F00] hover:text-white text-gray-700 rounded-lg font-medium transition-all duration-300">₹100</button>
+                <button type="button" onclick="setAmount(500)" class="px-4 py-2 bg-gray-100 hover:bg-[#DC5F00] hover:text-white text-gray-700 rounded-lg font-medium transition-all duration-300">₹500</button>
+                <button type="button" onclick="setAmount(1000)" class="px-4 py-2 bg-gray-100 hover:bg-[#DC5F00] hover:text-white text-gray-700 rounded-lg font-medium transition-all duration-300">₹1,000</button>
+                <button type="button" onclick="setAmount(5000)" class="px-4 py-2 bg-gray-100 hover:bg-[#DC5F00] hover:text-white text-gray-700 rounded-lg font-medium transition-all duration-300">₹5,000</button>
+              </div>
+            </div>
+            
+            <div class="flex gap-4">
+              <button 
+                type="submit" 
+                class="flex-1 px-6 py-4 bg-gradient-to-r from-[#DC5F00] to-[#c84100] text-white font-semibold rounded-xl hover:shadow-lg transform hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2"
+                id="pledge-submit-btn"
+              >
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                </svg>
+                Make Pledge
+              </button>
+              <button 
+                type="button" 
+                onclick="closePledgeModal()" 
+                class="px-6 py-4 bg-gray-100 text-gray-700 font-semibold rounded-xl hover:bg-gray-200 transition-all duration-300"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
 
     <script>
-      function closeMessage() {
-        document.getElementById('message-overlay').classList.add('hidden')
-        document.getElementById('message-overlay').classList.remove('flex')
-      }
-      
       function closeModal() {
-        document.getElementById('modal-overlay').classList.add('hidden')
+        const modal = document.getElementById('modal-overlay');
+        if (modal) {
+          modal.style.display = 'none';
+        }
       }
       
-      function openMessage() {
-        document.getElementById('message-overlay').classList.add('flex')
-        document.getElementById('message-overlay').classList.remove('hidden')
+      function openPledgeModal() {
+        const modal = document.getElementById('pledge-modal');
+        const modalContent = document.getElementById('modal-content');
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        
+        // Animate modal opening
+        setTimeout(() => {
+          modalContent.classList.remove('scale-95');
+          modalContent.classList.add('scale-100');
+        }, 10);
       }
+      
+      function closePledgeModal() {
+        const modal = document.getElementById('pledge-modal');
+        const modalContent = document.getElementById('modal-content');
+        
+        // Animate modal closing
+        modalContent.classList.remove('scale-100');
+        modalContent.classList.add('scale-95');
+        
+        setTimeout(() => {
+          modal.classList.add('hidden');
+          modal.classList.remove('flex');
+        }, 200);
+      }
+      
+      function setAmount(amount) {
+        document.getElementById('amount').value = amount;
+      }
+      
+      // Close modal when clicking outside
+      document.getElementById('pledge-modal').addEventListener('click', function(e) {
+        if (e.target === this) {
+          closePledgeModal();
+        }
+      });
+      
+      // Form validation
+      document.getElementById('pledge-form').addEventListener('submit', function(e) {
+        const amount = document.getElementById('amount').value;
+        const submitBtn = document.getElementById('pledge-submit-btn');
+        
+        if (!amount || amount <= 0) {
+          e.preventDefault();
+          alert('Please enter a valid amount greater than 0.');
+          return;
+        }
+        
+        // Show loading state
+        submitBtn.innerHTML = `
+          <svg class="animate-spin w-5 h-5" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+          Processing...
+        `;
+        submitBtn.disabled = true;
+      });
     </script>
 
-    <section class="raleway">
-      <div class="w-full h-full flex flex-col gap-4 max-w-screen-xl px-4 mx-auto xl:px-36">
+    <section class="raleway bg-gradient-to-br from-gray-50 to-[#FFF3E0] min-h-screen py-8">
+      <div class="w-full h-full flex flex-col gap-8 max-w-screen-xl px-4 mx-auto xl:px-36">
+        <!-- Project Title -->
         <div class="w-full flex justify-center items-center text-center">
-          <span class="text-3xl font-semibold text-[#DC5F00]">{{ project.title }}</span>
+          <h1 class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-[#DC5F00] to-[#c84100] bg-clip-text text-transparent">{{ project.title }}</h1>
         </div>
 
-        <div class="w-full flex flex-row justify-center items-center lg:gap-8 xl:gap-8 box-border">
-          <div class="w-[65%] flex flex-col justify-center items-center">
-            <div class="w-full mx-auto mb-6">
-              <div class="w-full bg-gray-100 rounded overflow-hidden">
-                <img id="mainImage" class="w-full h-auto object-cover transition-all duration-300" src="{{ project.campaign_cover.url }}" alt="Main Campaign Image" />
+        <!-- Main Content -->
+        <div class="w-full flex flex-col lg:flex-row justify-center items-start lg:gap-12 xl:gap-16 box-border">
+          <!-- Left Column - Images -->
+          <div class="w-full lg:w-[65%] flex flex-col justify-center items-center">
+            <div class="w-full mx-auto mb-8">
+              <div class="w-full bg-white rounded-2xl shadow-xl overflow-hidden">
+                <img id="mainImage" class="w-full h-auto object-cover transition-all duration-500" src="{{ project.campaign_cover.url }}" alt="Main Campaign Image" />
               </div>
             </div>
 
             <!-- Thumbnail Gallery -->
-            <div class="flex flex-wrap justify-start items-center gap-3 max-w-3xl mx-auto">
+            <div class="flex flex-wrap justify-start items-center gap-4 max-w-3xl mx-auto">
               <!-- Cover Image as First Thumbnail -->
-              <img src="{{ project.campaign_cover.url }}" alt="Cover Image" class="w-20 h-20 object-cover rounded cursor-pointer border-2 border-transparent hover:border-[#DC5F00] transition" onclick="changeImage('{{ project.campaign_cover.url }}')" />
+              <img src="{{ project.campaign_cover.url }}" alt="Cover Image" class="w-20 h-20 object-cover rounded-xl cursor-pointer border-2 border-transparent hover:border-[#DC5F00] transition-all duration-300 shadow-md" onclick="changeImage('{{ project.campaign_cover.url }}')" />
 
               <!-- Gallery Images -->
               {% for image in project.gallery_images.all %}
-                <img src="{{ image.image.url }}" alt="Gallery Image {{ forloop.counter }}" class="w-20 h-20 object-cover rounded cursor-pointer border-2 border-transparent hover:border-[#DC5F00] transition" onclick="changeImage('{{ image.image.url }}')" />
+                <img src="{{ image.image.url }}" alt="Gallery Image {{ forloop.counter }}" class="w-20 h-20 object-cover rounded-xl cursor-pointer border-2 border-transparent hover:border-[#DC5F00] transition-all duration-300 shadow-md" onclick="changeImage('{{ image.image.url }}')" />
               {% endfor %}
             </div>
 
@@ -124,13 +252,15 @@
               }
             </script>
 
-            <div class="w-full h-auto my-6"></div>
+            <div class="w-full h-auto my-8"></div>
           </div>
 
-          <div class="w-[35%] flex flex-col">
-            <Button class="w-full h-auto flex justify-center items-center gap-6 py-2 px-5 mb-6 rounded-lg shadow-md bg-[#DC5F00]">
-              <span class="text-xl text-white">Pledge now</span>
-              <svg class="w-10 h-10 stroke-white fill=[#DC5F00]" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none">
+          <!-- Right Column - Pledge Section -->
+          <div class="w-full lg:w-[35%] flex flex-col">
+            <!-- Pledge Button -->
+            <button onclick="openPledgeModal()" class="w-full h-auto flex justify-center items-center gap-4 py-5 px-6 mb-6 rounded-2xl shadow-xl bg-gradient-to-r from-[#DC5F00] to-[#c84100] hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
+              <span class="text-xl text-white font-bold">Pledge now</span>
+              <svg class="w-8 h-8 stroke-white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none">
                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                 <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
                 <g id="SVGRepo_iconCarrier">
@@ -139,11 +269,12 @@
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M18 15v3m0 3v-3m0 0h-3m3 0h3"></path>
                 </g>
               </svg>
-            </Button>
+            </button>
 
-            <Button class="w-full h-auto flex justify-center items-center gap-6 py-2 px-5 mb-3 rounded-lg bg-white border-2 border-solid border-[#DC5F00]">
-              <span class="text-xl text-[#DC5F00] capitalize">Be Our Voice</span>
-              <svg class="w-8 h-8 fill-[#DC5F00]" viewBox="-1 0 26 26" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+            <!-- Share Button -->
+            <button class="w-full h-auto flex justify-center items-center gap-4 py-4 px-6 mb-4 rounded-2xl bg-white border-2 border-solid border-[#DC5F00] hover:bg-[#FFE5CC] transition-all duration-300 shadow-lg">
+              <span class="text-lg text-[#DC5F00] capitalize font-semibold">Be Our Voice</span>
+              <svg class="w-6 h-6 fill-[#DC5F00]" viewBox="-1 0 26 26" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                 <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
                 <g id="SVGRepo_iconCarrier">
@@ -154,123 +285,140 @@
                   </g>
                 </g>
               </svg>
-            </Button>
-            <span class="italic text-center mb-8">Every Social Media Share is valuable</span>
+            </button>
+            <span class="italic text-center mb-8 text-gray-600 text-sm">Every Social Media Share is valuable</span>
 
-            <div class="w-full h-auto flex flex-col gap-4 mb-8">
-              <span class="text-5xl">&#8377; {{ project.achieved_funding }}</span>
-              <span>raised of <span class="text-2xl">&#8377; {{ project.funding_goal }}</span></span>
-              <div class="w-full mx-auto bg-[#dc5f004d] rounded-full h-2">
-                <div class="bg-[#DC5F00] h-2 rounded-full" style="width: {{ project.campaign_progress }};"></div>
+            <!-- Funding Progress -->
+            <div class="w-full h-auto flex flex-col gap-6 mb-8 bg-white rounded-2xl p-6 shadow-xl">
+              <div class="text-center">
+                <span class="text-4xl md:text-5xl font-bold text-[#DC5F00]">₹{{ project.achieved_funding }}</span>
+                <p class="text-gray-600 mt-2">raised of <span class="text-xl font-semibold">₹{{ project.funding_goal }}</span></p>
               </div>
-              <div class="flex justify-between items-center">
-                <span class="text-xl"><span class="text-4xl">{{ project.total_pledges }}</span> Pledges</span>
-                <span class="text-xl"><span class="text-4xl">{{ project.days_left }}</span> Days Left</span>
+              
+              <div class="w-full bg-gray-200 rounded-full h-3">
+                <div class="bg-gradient-to-r from-[#DC5F00] to-[#c84100] h-3 rounded-full transition-all duration-1000" style="width: {{ project.campaign_progress }}%"></div>
+              </div>
+              
+              <div class="flex justify-between items-center text-center">
+                <div>
+                  <span class="text-2xl md:text-3xl font-bold text-[#DC5F00] block">{{ project.total_pledges }}</span>
+                  <span class="text-gray-600 text-sm">Pledges</span>
+                </div>
+                <div>
+                  <span class="text-2xl md:text-3xl font-bold text-[#DC5F00] block">{{ project.days_left }}</span>
+                  <span class="text-gray-600 text-sm">Days Left</span>
+                </div>
               </div>
             </div>
 
-            <div class="w-full h-auto rounded-md border-2 border-solid border-gray-400 px-6 py-4">
-              <div class="flex justify-between items-center mb-4">
+            <!-- Creator Info -->
+            <div class="w-full h-auto rounded-2xl border-2 border-solid border-gray-200 px-6 py-6 bg-white shadow-xl">
+              <div class="flex justify-between items-center mb-6">
                 <div class="w-16 h-16 flex justify-center items-center">
-                  <img class="w-full h-full object-cover" src="{{ project.creator.pfp.url }}" alt="Creator Profile Picture" />
+                  <img class="w-full h-full object-cover rounded-full" src="{{ project.creator.pfp.url }}" alt="Creator Profile Picture" />
                 </div>
 
                 <div class="flex flex-col justify-center items-start">
-                  <span>Creator</span>
-                  <span class="text-[#DC5F00]">{{ project.creator.name }}</span>
-                  With Us Since 2022
+                  <span class="text-gray-500 text-sm">Creator</span>
+                  <span class="text-[#DC5F00] font-semibold text-lg">{{ project.creator.name }}</span>
+                  <span class="text-gray-600 text-sm">With Us Since 2022</span>
                 </div>
               </div>
 
               <div class="flex flex-col justify-center items-center px-4 gap-4">
-                <span class="w-full h-auto text-center border-2 border-solid border-[#DC5F00] px-4 py-2 rounded-lg text-[#DC5F00]">{{ project.category }}</span>
+                <span class="w-full h-auto text-center border-2 border-solid border-[#DC5F00] px-4 py-3 rounded-xl text-[#DC5F00] font-semibold bg-[#FFE5CC]">
+                    {{ project.category|format_category }}
+                </span>
               </div>
             </div>
           </div>
         </div>
         
-        <div class="flex flex-col justify-center items-center my-6">
+        <!-- Tabs Section -->
+        <div class="flex flex-col justify-center items-center my-8">
           <!-- Tab Headers -->
-          <div class="w-full h-auto flex justify-evenly text-center mb-2">
-            <button onclick="showTab('about')" class="tab-btn w-full py-3 text-lg font-medium text-white bg-[#DC5F00] active-tab border-b-2 border-solid border-[#DC5F00] rounded-tl-lg rounded-tr-lg" id="tab-about">About</button>
-            <button onclick="showTab('details')" class="tab-btn w-full py-3 text-lg font-medium text-[#DC5F00] border-b-2 border-solid border-[#DC5F00] rounded-tl-lg rounded-tr-lg" id="tab-details">Details</button>
-            <button onclick="showTab('rewards')" class="tab-btn w-full py-3 text-lg font-medium text-[#DC5F00] border-b-2 border-solid border-[#DC5F00] rounded-tl-lg rounded-tr-lg" id="tab-rewards">Rewards</button>
-            <button onclick="showTab('terms')" class="tab-btn w-full py-3 text-lg font-medium text-[#DC5F00] border-b-2 border-solid border-[#DC5F00] rounded-tl-lg rounded-tr-lg" id="tab-terms">T & C</button>
-            <button onclick="showTab('comments')" class="tab-btn w-full py-3 text-lg font-medium text-[#DC5F00] border-b-2 border-solid border-[#DC5F00] rounded-tl-lg rounded-tr-lg" id="tab-comments">Comments</button>
+          <div class="w-full h-auto flex justify-evenly text-center mb-4 bg-white rounded-2xl shadow-xl overflow-hidden">
+            <button onclick="showTab('about')" class="tab-btn w-full py-4 text-lg font-semibold text-white bg-gradient-to-r from-[#DC5F00] to-[#c84100] active-tab transition-all duration-300" id="tab-about">About</button>
+            <button onclick="showTab('details')" class="tab-btn w-full py-4 text-lg font-semibold text-[#DC5F00] hover:bg-[#FFE5CC] transition-all duration-300" id="tab-details">Details</button>
+            <button onclick="showTab('rewards')" class="tab-btn w-full py-4 text-lg font-semibold text-[#DC5F00] hover:bg-[#FFE5CC] transition-all duration-300" id="tab-rewards">Rewards</button>
+            <button onclick="showTab('terms')" class="tab-btn w-full py-4 text-lg font-semibold text-[#DC5F00] hover:bg-[#FFE5CC] transition-all duration-300" id="tab-terms">T & C</button>
+            <button onclick="showTab('comments')" class="tab-btn w-full py-4 text-lg font-semibold text-[#DC5F00] hover:bg-[#FFE5CC] transition-all duration-300" id="tab-comments">Comments</button>
           </div>
+          
           <!-- Tab Content -->
-          <div id="tab-content" class="w-full h-auto mt-8 p-4 bg-white shadow-2xl mb-6">
+          <div id="tab-content" class="w-full h-auto mt-6 p-8 bg-white shadow-2xl rounded-2xl mb-8">
             <!-- About Section -->
             <div id="about" class="tab-section flex flex-col justify-start items-start gap-6">
-              <div class="flex justify-start items-start gap-2">
-                <span>Description:</span>
-                <span>{{ project.description }}</span>
+              <div class="flex justify-start items-start gap-4 w-full">
+                <span class="font-semibold text-gray-700 min-w-[120px]">Description:</span>
+                <span class="text-gray-600 leading-relaxed">{{ project.description }}</span>
               </div>
   
-              <div class="flex justify-start items-start gap-2">
-                <span>Start Date:</span>
-                <span>{{ project.start_date }}</span>
+              <div class="flex justify-start items-start gap-4 w-full">
+                <span class="font-semibold text-gray-700 min-w-[120px]">Start Date:</span>
+                <span class="text-gray-600">{{ project.start_date }}</span>
               </div>
   
-              <div class="flex justify-start items-start gap-2">
-                <span>End Date:</span>
-                <span>{{ project.end_date }}</span>
+              <div class="flex justify-start items-start gap-4 w-full">
+                <span class="font-semibold text-gray-700 min-w-[120px]">End Date:</span>
+                <span class="text-gray-600">{{ project.end_date }}</span>
               </div>
   
-              <div class="flex justify-start items-start gap-2">
-                <span>Problem Statement:</span>
-                <span>{{ project.problem_statement }}</span>
+              <div class="flex justify-start items-start gap-4 w-full">
+                <span class="font-semibold text-gray-700 min-w-[120px]">Problem Statement:</span>
+                <span class="text-gray-600 leading-relaxed">{{ project.problem_statement }}</span>
               </div>
             </div>
   
             <div id="details" class="tab-section hidden flex-col justify-start items-start gap-6">
-              <div class="flex justify-start items-start gap-2">
-                <span>Detailed Description:</span>
-                <span>{{ project.detailed_description }}</span>
+              <div class="flex justify-start items-start gap-4 w-full">
+                <span class="font-semibold text-gray-700 min-w-[120px]">Detailed Description:</span>
+                <span class="text-gray-600 leading-relaxed">{{ project.detailed_description }}</span>
               </div>
   
-              <div class="flex justify-start items-start gap-2">
-                <span>Funds Use:</span>
-                <span>{{ project.detailed_description }}</span>
+              <div class="flex justify-start items-start gap-4 w-full">
+                <span class="font-semibold text-gray-700 min-w-[120px]">Funds Use:</span>
+                <span class="text-gray-600 leading-relaxed">{{ project.detailed_description }}</span>
               </div>
   
-              <div class="flex justify-start items-start gap-2">
-                <span>Video Url:</span>
-                <span>{{ project.video_url }}</span>
+              <div class="flex justify-start items-start gap-4 w-full">
+                <span class="font-semibold text-gray-700 min-w-[120px]">Video Url:</span>
+                <span class="text-gray-600">{{ project.video_url }}</span>
               </div>
             </div>
   
             <!-- Rewards Section -->
             <div id="rewards" class="tab-section hidden flex-col justify-start items-start gap-6">
-              <div class="flex justify-start items-start gap-2">
-                <span>Reward Title:</span>
-                <span>{{ project.reward_title }}</span>
+              <div class="flex justify-start items-start gap-4 w-full">
+                <span class="font-semibold text-gray-700 min-w-[120px]">Reward Title:</span>
+                <span class="text-gray-600">{{ project.reward_title }}</span>
               </div>
-              <div class="flex justify-start items-start gap-2">
-                <span>Description:</span>
-                <span>{{ project.reward_description }}</span>
+              <div class="flex justify-start items-start gap-4 w-full">
+                <span class="font-semibold text-gray-700 min-w-[120px]">Description:</span>
+                <span class="text-gray-600 leading-relaxed">{{ project.reward_description }}</span>
               </div>
-              <div class="flex justify-start items-start gap-2">
-                <span>Delivery Date:</span>
-                <span>{{ project.delivery }}</span>
+              <div class="flex justify-start items-start gap-4 w-full">
+                <span class="font-semibold text-gray-700 min-w-[120px]">Delivery Date:</span>
+                <span class="text-gray-600">{{ project.delivery }}</span>
               </div>
             </div>
   
             <!-- Terms Section -->
             <div id="terms" class="tab-section hidden">
-              <div class="flex justify-start items-start gap-2">
-                <span>Terms & Conditions:</span>
-                <span>{{ project.agreements }}</span>
+              <div class="flex justify-start items-start gap-4 w-full">
+                <span class="font-semibold text-gray-700 min-w-[120px]">Terms & Conditions:</span>
+                <span class="text-gray-600 leading-relaxed">{{ project.agreements }}</span>
               </div>
             </div>
 
             <div id="comments" class="tab-section hidden">
-              <div class="flex justify-start items-start gap-2">
-                <span>Terms & Conditions:</span>
-                <span>{{ project.agreements }}</span>
+              <div class="flex justify-start items-start gap-4 w-full">
+                <span class="font-semibold text-gray-700 min-w-[120px]">Comments:</span>
+                <span class="text-gray-600 leading-relaxed">No comments yet. Be the first to comment!</span>
               </div>
             </div>
           </div>
+          
           <script>
             function showTab(tabId) {
               // Hide all sections
@@ -285,14 +433,14 @@
             
               // Reset all tab styles
               document.querySelectorAll('.tab-btn').forEach((tab) => {
-                tab.classList.remove('bg-[#DC5F00]', 'text-white')
-                tab.classList.add('text-[#DC5F00]', 'border-b-2')
+                tab.classList.remove('bg-gradient-to-r', 'from-[#DC5F00]', 'to-[#c84100]', 'text-white')
+                tab.classList.add('text-[#DC5F00]')
               })
             
               // Highlight the active tab
               const activeTab = document.getElementById(`tab-${tabId}`)
-              activeTab.classList.add('bg-[#DC5F00]', 'text-white')
-              activeTab.classList.remove('border-b-2')
+              activeTab.classList.add('bg-gradient-to-r', 'from-[#DC5F00]', 'to-[#c84100]', 'text-white')
+              activeTab.classList.remove('text-[#DC5F00]')
             }
             
             // Set default tab on page load

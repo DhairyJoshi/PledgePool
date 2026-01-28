@@ -1,43 +1,53 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from accounts.models import pledgepool_user
-from projects.models import Campaign, Pledge
+from projects.models import Campaign, Pledge, CampaignGalleryImage
 from django.utils import timezone
 from django.contrib import messages
 from decimal import Decimal
-from projects.models import CampaignGalleryImage
+from urllib.parse import unquote
 
 def viewprojects(request):
-    # Fixed categories for navbar
-    CATEGORY_LIST = [
-        'Art & Design', 'Film & Video', 'Games', 'Social Causes', 'Education',
-        'Health & Wellness', 'Technology', 'Startups', 'Animals & Pets'
-    ]
 
-    # Count projects per category
-    from django.db.models import Count
-    category_counts = {}
-    for cat in CATEGORY_LIST:
-        if cat == 'Film & Video':
-            # Combine Film & Video and Music counts
-            film_video_count = Campaign.objects.filter(category__iexact='Film & Video').count()
-            music_count = Campaign.objects.filter(category__iexact='Music').count()
-            category_counts[cat] = film_video_count + music_count
-        else:
-            category_counts[cat] = Campaign.objects.filter(category__iexact=cat).count()
+    CATEGORY_LABEL_MAP = {
+        'Art & Design': ['Art & Design'],
+        'Film & Video': ['Film & Video'],
+        'Music': ['Music'],
+        'Games': ['Games'],
+        'Social Causes': ['Social Causes'],
+        'Education': ['Education'],
+        'Health & Wellness': ['Health & Wellness'],
+        'Technology & Innovation': ['Technology & Innovation'],
+        'Startups & Entrepreneurship': ['Startups & Entrepreneurship'],
+        'Animals & Pets': ['Animals & Pets'],
+    }
+
+    CATEGORY_LIST = list(CATEGORY_LABEL_MAP.keys())
+
+    # Count projects per UI category
+    category_counts = {
+        label: Campaign.objects.filter(category__in=db_categories).count()
+        for label, db_categories in CATEGORY_LABEL_MAP.items()
+    }
+
     total_count = Campaign.objects.all().count()
 
-    # Filtering
-    selected_category = request.GET.get('category')
+    # Filtering logic
+    selected_category = request.GET.get('category', '').strip()
+    selected_category = unquote(selected_category)  # decode URL-encoded values like %26
+
     search_query = request.GET.get('search')
     sort_by = request.GET.get('sort', 'trending')
 
     projects = Campaign.objects.all()
+
     if selected_category and selected_category != 'All':
-        if selected_category == 'Film & Video':
-            # Combine Film & Video and Music categories
-            projects = projects.filter(category__iexact__in=['Film & Video', 'Music'])
+        db_categories = CATEGORY_LABEL_MAP.get(selected_category)
+        if db_categories:
+            projects = projects.filter(category__in=db_categories)
         else:
-            projects = projects.filter(category__iexact=selected_category)
+            messages.warning(request, f"Unrecognized category: {selected_category}")
+            projects = Campaign.objects.none()  # or keep all if preferred
+
     if search_query:
         projects = projects.filter(title__icontains=search_query)
 
@@ -53,18 +63,16 @@ def viewprojects(request):
 
     today = timezone.now().date()
 
-    # Add days_left to each project
+    # Add calculated fields to each project
     for project in projects:
         if project.end_date:
             delta = project.end_date - today
-            project.days_left = max(delta.days, 0)  # Avoid negative days
+            project.days_left = max(delta.days, 0)
         else:
             project.days_left = 0
 
-        # Calculate remaining amount
         project.remaining_amount = max(project.funding_goal - project.achieved_funding, 0)
 
-        # Inside loop:
         if project.funding_goal > 0:
             progress = (Decimal(project.achieved_funding) / Decimal(project.funding_goal)) * Decimal(100)
             project.campaign_progress = f"{min(round(progress, 2), 100)}%"
@@ -85,7 +93,7 @@ def viewprojects(request):
 def createproject(request):
     if request.session.get('role') != 'creator':
         return redirect('access-denied')
-    
+
     if request.method == 'POST':
         user_id = request.session.get('user_id')
         if not user_id:
@@ -96,29 +104,27 @@ def createproject(request):
         except pledgepool_user.DoesNotExist:
             return redirect('../accounts/login')
 
+        # Get form values
         title = request.POST.get('title')
         category = request.POST.get('category')
         funding_goal = request.POST.get('funding_goal')
         description = request.POST.get('description')
         start_date = request.POST.get('start_date')
         end_date = request.POST.get('end_date')
-
         detailed_description = request.POST.get('detailed_description')
         problem_statement = request.POST.get('problem_statement')
         funds_use = request.POST.get('funds_use')
         video_url = request.POST.get('video_url')
-
         reward_title = request.POST.get('reward_title')
         reward_description = request.POST.get('reward_description')
         delivery = request.POST.get('delivery_date')
-        agreements = request.POST.get('agreements')  # Fixed key here
+        agreements = request.POST.get('agreements')
 
-        # file uploads
+        # Files
         campaign_cover = request.FILES.get('campaign_cover')
         campaign_gallery_files = request.FILES.getlist('campaign_gallery')
 
         try:
-            # Create and save the campaign instance
             campaign_instance = Campaign.objects.create(
                 creator=user,
                 title=title,
@@ -139,9 +145,8 @@ def createproject(request):
                 delivery=delivery,
                 agreements=agreements,
             )
-            campaign_instance.save()
 
-            # If there's a gallery image, associate it with the campaign
+            # Save gallery images
             for image_file in campaign_gallery_files:
                 CampaignGalleryImage.objects.create(
                     campaign=campaign_instance,
@@ -156,7 +161,6 @@ def createproject(request):
             return redirect('../projects/create')
 
     return render(request, 'create_project.html')
-
 
 def projectdetails(request, project_id):
     project = get_object_or_404(Campaign, id=project_id)
